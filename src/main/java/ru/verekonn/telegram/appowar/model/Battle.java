@@ -1,5 +1,7 @@
 package ru.verekonn.telegram.appowar.model;
 
+import javax.validation.constraints.Null;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.Id;
@@ -22,6 +24,12 @@ public class Battle {
     String id;
 
     Long time;
+
+    BattleState state;
+
+    String winnerUserName;
+
+    String looserUserName;
 
     UserBattleState userFirst;
 
