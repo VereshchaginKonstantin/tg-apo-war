@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.Id;
@@ -12,9 +13,9 @@ import org.springframework.data.redis.core.RedisHash;
 
 import java.util.List;
 
-@FieldDefaults(makeFinal = true, level = AccessLevel.PUBLIC)
 @AllArgsConstructor
 @Getter
+@Setter
 @RedisHash("user")
 @Builder
 @ToString
@@ -26,6 +27,8 @@ public class User {
      */
     @Id
     String userName;
+
+    String chatId;
 
     Long cash;
 

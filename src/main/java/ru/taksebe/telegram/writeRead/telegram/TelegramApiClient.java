@@ -22,6 +22,7 @@ public class TelegramApiClient {
     private final String URL;
     private final String botToken;
 
+
     private final RestTemplate restTemplate;
 
     public TelegramApiClient(@Value("${telegram.api-url}") String URL,

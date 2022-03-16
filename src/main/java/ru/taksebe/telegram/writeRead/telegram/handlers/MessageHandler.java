@@ -25,11 +25,11 @@ public class MessageHandler {
         String chatId = message.getChatId().toString();
         String userName = message.getFrom().getUserName();
         String inputText = message.getText();
+        User user = getUser(userName, chatId);
 
         if (inputText == null) {
             throw new IllegalArgumentException();
         } else if (inputText.equals("/start")) {
-            User user = getUser(userName);
             return getStartMessage(chatId, user);
         } else if (inputText.equals(ButtonNameEnum.START_FIGHT_TASKS_BUTTON.getButtonName())) {
             return getStartFightMessage(chatId, userName);
@@ -38,10 +38,13 @@ public class MessageHandler {
         }
     }
 
-    private User getUser(String userName) {
+    private User getUser(String userName, String chatId) {
        var user = userRepository.findById(userName);
        if (!user.isPresent()) {
-           userRepository.save(new User(userName, 100L,0L,0L));
+           userRepository.save(new User(userName, chatId, 100L,0L,0L));
+       } else {
+           user.get().setChatId(chatId);
+           userRepository.save(user.get());
        }
        return userRepository.findById(userName).get();
     }
