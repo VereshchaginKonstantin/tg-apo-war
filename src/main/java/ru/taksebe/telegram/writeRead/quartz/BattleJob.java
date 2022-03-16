@@ -59,13 +59,13 @@ public class BattleJob implements Job {
                         text += userFirst.getUserName();
                         userFirst.setWins(userFirst.getWins() + 1);
                         userFirst.setCash(userFirst.getCash() + 100);
-                        userSecond.setCash(userSecond.getCash() - 100);
+                        userSecond.setCash(userSecond.getCash() - 50);
                         userSecond.setLoose(userSecond.getLoose() + 1);
                     } else {
                         text += userSecond.getUserName();
                         userSecond.setWins(userSecond.getWins() + 1);
                         userSecond.setCash(userSecond.getCash() + 100);
-                        userFirst.setCash(userFirst.getCash() - 100);
+                        userFirst.setCash(userFirst.getCash() - 50);
                         userFirst.setLoose(userFirst.getLoose() + 1);
                     }
                     userRepository.save(userSecond);
