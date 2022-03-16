@@ -5,38 +5,34 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
-import java.util.Set;
+import java.util.List;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@RedisHash("word")
-public class Word {
+@RedisHash("battle")
+public class Battle {
 
     /**
      * Словарное слово
      */
     @Id
-    String word;
+    String id;
 
-    /**
-     * Ошибочные варианты написания
-     */
-    Set<String> mistakes;
+    List<UserBattleState> user;
 
     @Override
     public boolean equals(Object obj) {
         if (obj == null || obj.getClass() != this.getClass()) {
             return false;
         }
-        Word word = (Word) obj;
-        return this.word.equals(word.getWord());
+        return this.id.equals(((Battle) obj).getId());
     }
 
     @Override
     public int hashCode() {
-        return this.word.hashCode();
+        return this.id.hashCode();
     }
 }

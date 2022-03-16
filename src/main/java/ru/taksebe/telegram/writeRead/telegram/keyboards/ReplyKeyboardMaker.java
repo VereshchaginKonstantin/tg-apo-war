@@ -1,10 +1,13 @@
 package ru.taksebe.telegram.writeRead.telegram.keyboards;
 
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import ru.taksebe.telegram.writeRead.constants.bot.ButtonNameEnum;
+import ru.taksebe.telegram.writeRead.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,5 +32,34 @@ public class ReplyKeyboardMaker {
         replyKeyboardMarkup.setOneTimeKeyboard(false);
 
         return replyKeyboardMarkup;
+    }
+
+    public InlineKeyboardMarkup getUsersKeyboard(Iterable<User> userList, String userName) {
+
+        List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
+
+        userList.forEach(u -> {
+            if (!u.getUserName().equals(userName)) {
+                rowList.add(getButton(
+                        ButtonNameEnum.START_FIGHT_USER_TASKS_BUTTON.getButtonName()
+                                + u.getUserName(),
+                        u.getUserName()));
+            }
+        });
+
+        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+        inlineKeyboardMarkup.setKeyboard(rowList);
+        return inlineKeyboardMarkup;
+    }
+
+    private List<InlineKeyboardButton> getButton(String buttonName,
+                                                 String buttonCallBackData) {
+        InlineKeyboardButton button = new InlineKeyboardButton();
+        button.setText(buttonName);
+        button.setCallbackData(buttonCallBackData);
+
+        List<InlineKeyboardButton> keyboardButtonsRow = new ArrayList<>();
+        keyboardButtonsRow.add(button);
+        return keyboardButtonsRow;
     }
 }
