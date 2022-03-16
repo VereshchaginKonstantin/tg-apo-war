@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
+import ru.verekonn.telegram.appowar.model.BattleState;
 import ru.verekonn.telegram.appowar.model.repository.BattleRepository;
 import ru.verekonn.telegram.appowar.model.repository.UserRepository;
 import ru.verekonn.telegram.appowar.model.Battle;
@@ -38,6 +39,9 @@ public class CallbackQueryHandler {
                     new Battle(
                             (new GUID()).toString(),
                     0L,
+                         BattleState.START,
+                        "",
+                        "",
                         new UserBattleState(
                                 user.getUserName(),
                                 0L,

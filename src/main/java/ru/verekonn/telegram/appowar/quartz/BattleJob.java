@@ -24,9 +24,6 @@ import ru.verekonn.telegram.appowar.telegram.WriteReadBot;
 public class BattleJob implements Job {
 
     static Object lock =  new Object();
-    static Random random = new Random(2333);
-
-
 
     @Autowired
     BattleEngine battleEngine;
@@ -39,11 +36,6 @@ public class BattleJob implements Job {
 
     @Autowired
     WriteReadBot writeReadBot;
-
-
-    @Autowired
-    UserRepository userRepository;
-
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
