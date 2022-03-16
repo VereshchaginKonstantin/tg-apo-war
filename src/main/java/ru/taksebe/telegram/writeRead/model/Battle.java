@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @RedisHash("battle")
+@ToString
 public class Battle {
 
     /**

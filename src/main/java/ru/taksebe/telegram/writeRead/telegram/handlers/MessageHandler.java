@@ -48,8 +48,11 @@ public class MessageHandler {
     }
 
     private User getUser(String userName) {
-       return new User(userName, 1L,1L,1L);
-       //    var user = userRepository.
+       var user = userRepository.findById(userName);
+       if (!user.isPresent()) {
+           userRepository.save(new User(userName, 100L,0L,0L));
+       }
+       return userRepository.findById(userName).get();
     }
 
     private SendMessage getStartMessage(String chatId, User user) {
