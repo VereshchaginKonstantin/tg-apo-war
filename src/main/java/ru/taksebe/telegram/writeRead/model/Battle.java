@@ -11,10 +11,11 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 @RedisHash("battle")
 @ToString
 public class Battle {
+
+    static public int END = 20;
 
     /**
      * Словарное слово
@@ -22,7 +23,11 @@ public class Battle {
     @Id
     String id;
 
-    List<UserBattleState> user;
+    Long time;
+
+    UserBattleState userFirst;
+
+    UserBattleState userSecond;
 
     @Override
     public boolean equals(Object obj) {

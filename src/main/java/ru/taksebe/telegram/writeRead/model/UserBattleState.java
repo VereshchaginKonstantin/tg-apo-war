@@ -1,19 +1,20 @@
 package ru.taksebe.telegram.writeRead.model;
 
-import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
-import lombok.experimental.FieldDefaults;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @Getter
+@Setter
+@AllArgsConstructor
 @RedisHash("user")
 @Builder
 @ToString
 public class UserBattleState {
+    String userName;
     Long attack;
     Long defence;
 }
