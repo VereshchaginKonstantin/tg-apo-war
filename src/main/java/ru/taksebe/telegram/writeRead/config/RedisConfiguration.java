@@ -1,5 +1,7 @@
 package ru.taksebe.telegram.writeRead.config;
 
+import java.util.Arrays;
+
 import org.springframework.boot.autoconfigure.data.redis.LettuceClientConfigurationBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,10 +11,8 @@ import org.springframework.data.redis.core.convert.RedisCustomConversions;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import ru.taksebe.telegram.writeRead.converters.BytesToUserConverter;
-import ru.taksebe.telegram.writeRead.converters.UserToBytesConverter;
-
-import java.util.Arrays;
+import ru.taksebe.telegram.writeRead.converters.BytesToUserBattleStateConverter;
+import ru.taksebe.telegram.writeRead.converters.UserBattleStateToBytesConverter;
 
 @Configuration
 @EnableRedisRepositories
@@ -38,7 +38,6 @@ public class RedisConfiguration {
 
     @Bean
     public RedisCustomConversions redisCustomConversions() {
-        return new RedisCustomConversions();
-//        return new RedisCustomConversions(Arrays.asList(new UserToBytesConverter(), new BytesToUserConverter()));
+         return new RedisCustomConversions(Arrays.asList(new UserBattleStateToBytesConverter(), new BytesToUserBattleStateConverter()));
     }
 }

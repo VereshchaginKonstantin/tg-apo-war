@@ -4,19 +4,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import ru.taksebe.telegram.writeRead.model.User;
+import ru.taksebe.telegram.writeRead.model.UserBattleState;
 
 import javax.annotation.Nullable;
 
-public class BytesToUserConverter implements Converter<byte[], User> {
-    private final Jackson2JsonRedisSerializer<User> serializer;
+public class BytesToUserBattleStateConverter implements Converter<byte[], UserBattleState> {
+    private final Jackson2JsonRedisSerializer<UserBattleState> serializer;
 
-    public BytesToUserConverter() {
-        serializer = new Jackson2JsonRedisSerializer<>(User.class);
+    public BytesToUserBattleStateConverter() {
+        serializer = new Jackson2JsonRedisSerializer<>(UserBattleState.class);
         serializer.setObjectMapper(new ObjectMapper());
     }
 
     @Override
-    public User convert(@Nullable byte[] value) {
+    public UserBattleState convert(@Nullable byte[] value) {
         return serializer.deserialize(value);
     }
 }
