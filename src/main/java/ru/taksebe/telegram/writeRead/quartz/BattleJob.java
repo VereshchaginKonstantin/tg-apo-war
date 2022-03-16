@@ -40,7 +40,6 @@ public class BattleJob implements Job {
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         List<Battle> remove = new ArrayList<>();
         battleRepository.findAll().forEach(b -> {
-
             b.setTime(b.getTime() + 1);
             battleRepository.save(b);
             var userFirst = userRepository
@@ -63,10 +62,14 @@ public class BattleJob implements Job {
                     text += userFirst.getUserName();
                     userFirst.setWins(userFirst.getWins() + 1);
                     userFirst.setCash(userFirst.getCash() + 100);
-                } else {
-                    text += userSecond.getUserName();
                     userSecond.setCash(userSecond.getCash() - 100);
                     userSecond.setLoose(userSecond.getLoose() + 1);
+                } else {
+                    text += userSecond.getUserName();
+                    userSecond.setWins(userSecond.getWins() + 1);
+                    userSecond.setCash(userSecond.getCash() + 100);
+                    userFirst.setCash(userFirst.getCash() - 100);
+                    userFirst.setLoose(userFirst.getLoose() + 1);
                 }
                 userRepository.save(userSecond);
                 userRepository.save(userFirst);

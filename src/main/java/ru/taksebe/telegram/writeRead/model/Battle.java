@@ -5,8 +5,6 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
-import java.util.List;
-
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 @Setter
@@ -15,7 +13,7 @@ import java.util.List;
 @ToString
 public class Battle {
 
-    static public int END = 20;
+    static public int END = 3;
 
     /**
      * Словарное слово
