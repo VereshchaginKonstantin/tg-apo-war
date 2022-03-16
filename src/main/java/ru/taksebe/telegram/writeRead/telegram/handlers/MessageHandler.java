@@ -1,9 +1,5 @@
 package ru.taksebe.telegram.writeRead.telegram.handlers;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -14,12 +10,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import ru.taksebe.telegram.writeRead.api.dictionaries.UserRepository;
 import ru.taksebe.telegram.writeRead.constants.bot.BotMessageEnum;
 import ru.taksebe.telegram.writeRead.constants.bot.ButtonNameEnum;
-import ru.taksebe.telegram.writeRead.constants.bot.CallbackDataPartsEnum;
-import ru.taksebe.telegram.writeRead.exceptions.DictionaryTooBigException;
-import ru.taksebe.telegram.writeRead.exceptions.TelegramFileNotFoundException;
 import ru.taksebe.telegram.writeRead.model.User;
-import ru.taksebe.telegram.writeRead.telegram.TelegramApiClient;
-import ru.taksebe.telegram.writeRead.telegram.keyboards.InlineKeyboardMaker;
 import ru.taksebe.telegram.writeRead.telegram.keyboards.ReplyKeyboardMaker;
 
 @Component
