@@ -6,7 +6,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMar
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
-import ru.taksebe.telegram.writeRead.constants.bot.ButtonNameEnum;
+import ru.taksebe.telegram.writeRead.telegram.constants.bot.ButtonNameEnum;
 import ru.taksebe.telegram.writeRead.model.User;
 
 import java.util.ArrayList;

@@ -11,8 +11,8 @@ import org.springframework.data.redis.core.convert.RedisCustomConversions;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import ru.taksebe.telegram.writeRead.converters.BytesToUserBattleStateConverter;
-import ru.taksebe.telegram.writeRead.converters.UserBattleStateToBytesConverter;
+import ru.taksebe.telegram.writeRead.model.converters.BytesToUserBattleStateConverter;
+import ru.taksebe.telegram.writeRead.model.converters.UserBattleStateToBytesConverter;
 
 @Configuration
 @EnableRedisRepositories

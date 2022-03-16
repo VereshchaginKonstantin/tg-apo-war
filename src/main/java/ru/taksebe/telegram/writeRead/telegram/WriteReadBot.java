@@ -11,7 +11,7 @@ import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.starter.SpringWebhookBot;
-import ru.taksebe.telegram.writeRead.constants.bot.BotMessageEnum;
+import ru.taksebe.telegram.writeRead.telegram.constants.bot.BotMessageEnum;
 import ru.taksebe.telegram.writeRead.telegram.handlers.CallbackQueryHandler;
 import ru.taksebe.telegram.writeRead.telegram.handlers.MessageHandler;
 

@@ -1,4 +1,4 @@
-package ru.taksebe.telegram.writeRead.constants.resources;
+package ru.taksebe.telegram.writeRead.telegram.constants.resources;
 
 /**
  * Расположение файлов шаблонов в resources

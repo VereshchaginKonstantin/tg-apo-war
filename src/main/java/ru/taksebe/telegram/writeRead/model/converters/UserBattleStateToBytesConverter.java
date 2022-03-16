@@ -1,4 +1,4 @@
-package ru.taksebe.telegram.writeRead.converters;
+package ru.taksebe.telegram.writeRead.model.converters;
 
 import javax.annotation.Nullable;
 

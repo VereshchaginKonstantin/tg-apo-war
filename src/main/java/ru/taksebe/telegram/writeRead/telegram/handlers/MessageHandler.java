@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import ru.taksebe.telegram.writeRead.api.dictionaries.UserRepository;
-import ru.taksebe.telegram.writeRead.constants.bot.BotMessageEnum;
-import ru.taksebe.telegram.writeRead.constants.bot.ButtonNameEnum;
+import ru.taksebe.telegram.writeRead.model.dictionaries.UserRepository;
+import ru.taksebe.telegram.writeRead.telegram.constants.bot.BotMessageEnum;
+import ru.taksebe.telegram.writeRead.telegram.constants.bot.ButtonNameEnum;
 import ru.taksebe.telegram.writeRead.model.User;
 import ru.taksebe.telegram.writeRead.telegram.keyboards.ReplyKeyboardMaker;
 

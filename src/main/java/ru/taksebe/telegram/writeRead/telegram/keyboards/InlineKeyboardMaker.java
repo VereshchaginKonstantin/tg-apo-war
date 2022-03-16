@@ -3,8 +3,8 @@ package ru.taksebe.telegram.writeRead.telegram.keyboards;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
-import ru.taksebe.telegram.writeRead.constants.bot.CallbackDataPartsEnum;
-import ru.taksebe.telegram.writeRead.constants.resources.DictionaryResourcePathEnum;
+import ru.taksebe.telegram.writeRead.telegram.constants.bot.CallbackDataPartsEnum;
+import ru.taksebe.telegram.writeRead.telegram.constants.resources.DictionaryResourcePathEnum;
 
 import java.util.ArrayList;
 import java.util.List;

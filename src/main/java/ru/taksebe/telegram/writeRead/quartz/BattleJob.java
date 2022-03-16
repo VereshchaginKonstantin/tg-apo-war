@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import ru.taksebe.telegram.writeRead.api.dictionaries.BattleRepository;
-import ru.taksebe.telegram.writeRead.api.dictionaries.UserRepository;
+import ru.taksebe.telegram.writeRead.model.dictionaries.BattleRepository;
+import ru.taksebe.telegram.writeRead.model.dictionaries.UserRepository;
 import ru.taksebe.telegram.writeRead.model.Battle;
 import ru.taksebe.telegram.writeRead.telegram.WriteReadBot;
 

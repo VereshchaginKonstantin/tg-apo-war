@@ -9,12 +9,11 @@ import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerFactory;
 import org.quartz.SimpleTrigger;
-import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
-import ru.taksebe.telegram.writeRead.api.dictionaries.UserRepository;
+import ru.taksebe.telegram.writeRead.model.dictionaries.UserRepository;
 
 import static org.quartz.DateBuilder.evenSecondDate;
 import static org.quartz.JobBuilder.newJob;

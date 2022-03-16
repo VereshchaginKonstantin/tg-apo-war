@@ -1,4 +1,4 @@
-package ru.taksebe.telegram.writeRead.constants.bot;
+package ru.taksebe.telegram.writeRead.telegram.constants.bot;
 
 /**
  * Названия кнопок основной клавиатуры

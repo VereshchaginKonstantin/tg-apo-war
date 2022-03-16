@@ -1,4 +1,4 @@
-package ru.taksebe.telegram.writeRead.api.dictionaries;
+package ru.taksebe.telegram.writeRead.model.dictionaries;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

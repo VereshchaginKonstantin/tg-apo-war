@@ -4,8 +4,8 @@ import lombok.Getter;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.springframework.stereotype.Component;
-import ru.taksebe.telegram.writeRead.constants.resources.DictionaryResourcePathEnum;
-import ru.taksebe.telegram.writeRead.constants.resources.TemplateResourcePathsEnum;
+import ru.taksebe.telegram.writeRead.telegram.constants.resources.DictionaryResourcePathEnum;
+import ru.taksebe.telegram.writeRead.telegram.constants.resources.TemplateResourcePathsEnum;
 
 import java.io.IOException;
 import java.util.HashMap;

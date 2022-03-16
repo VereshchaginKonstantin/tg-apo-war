@@ -1,4 +1,4 @@
-package ru.taksebe.telegram.writeRead.constants.bot;
+package ru.taksebe.telegram.writeRead.telegram.constants.bot;
 
 /**
  * Элементы ответов кнопок инлайн-клавиатур

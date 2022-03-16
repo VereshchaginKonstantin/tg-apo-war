@@ -1,9 +1,8 @@
-package ru.taksebe.telegram.writeRead.converters;
+package ru.taksebe.telegram.writeRead.model.converters;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
-import ru.taksebe.telegram.writeRead.model.User;
 import ru.taksebe.telegram.writeRead.model.UserBattleState;
 
 import javax.annotation.Nullable;
