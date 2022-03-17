@@ -7,6 +7,10 @@ import java.util.concurrent.TimeUnit;
 
 public class HistoryList<T> extends ArrayList<HistoryItem<T>> {
 
+    public HistoryList(T init) {
+        addValue(init);
+    }
+
     public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
         long diffInMillies = date2.getTime() - date1.getTime();
         return timeUnit.convert(diffInMillies,TimeUnit.SECONDS);

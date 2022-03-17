@@ -1,6 +1,7 @@
 package ru.verekonn.telegram.appowar.telegram.handlers;
 
 import java.io.IOException;
+import java.util.Date;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import ru.verekonn.telegram.appowar.model.repository.UserRepository;
 import ru.verekonn.telegram.appowar.model.Battle;
 import ru.verekonn.telegram.appowar.model.User;
 import ru.verekonn.telegram.appowar.model.UserBattleState;
+import ru.verekonn.telegram.appowar.utils.HistoryList;
 
 @Component
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
@@ -38,18 +40,19 @@ public class CallbackQueryHandler {
             battleRepository.save(
                     new Battle(
                             (new GUID()).toString(),
-                    0L,
-                         BattleState.START,
+                            new HistoryList<>(BattleState.START),
+                            new Date(),
+                            "",
                         "",
-                        "",
-                        new UserBattleState(
+                            new UserBattleState(
                                 user.getUserName(),
-                                0L,
-                                0L),
-                        new UserBattleState(
+                                new HistoryList<>(0L),
+                                new HistoryList<>(0L)),
+                            new UserBattleState(
                                 userSecond.getUserName(),
-                                0L,
-                                0L)));
+                                new HistoryList<>(0L),
+                                new HistoryList<>(0L))
+                        ));
             return new SendMessage(chatId,
                     "OK");
         } catch (Exception e) {
