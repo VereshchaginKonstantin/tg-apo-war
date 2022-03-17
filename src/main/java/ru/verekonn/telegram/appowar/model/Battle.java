@@ -51,4 +51,12 @@ public class Battle {
     public int hashCode() {
         return this.id.hashCode();
     }
+
+    public UserBattleState getUser(String userName) {
+        if (userFirst.getUserName().equals(userName)) {
+            return userFirst;
+        } else {
+            return userSecond;
+        }
+    }
 }

@@ -32,36 +32,73 @@ public class CallbackQueryHandler {
         final String chatId = buttonQuery.getMessage().getChatId().toString();
         final String userName = buttonQuery.getFrom().getUserName();
         try {
-            User user = userRepository
-                    .findById(userName)
-                    .get();
-            String userSecondName = buttonQuery.getData();
-            User userSecond = userRepository
-                    .findById(userSecondName)
-                    .get();
-            battleRepository.save(
-                    new Battle(
-                            (new GUID()).toString(),
-                            new HistoryList<>(new HistoryItem<>(BattleState.INIT)),
-                            new Date(),
-                            "",
-                        "",
-                            new UserBattleState(
-                                user.getUserName(),
-                                     UserAction.DEFENSE,
-                                    new HistoryList<>(new HistoryItem<>(0L)),
-                                    new HistoryList<>(new HistoryItem<>(0L))),
-                            new UserBattleState(
-                                userSecond.getUserName(),
-                                    UserAction.DEFENSE,
-                                    new HistoryList<>(new HistoryItem<>(0L)),
-                                    new HistoryList<>(new HistoryItem<>(0L))
-                        )));
-            return new SendMessage(chatId,
-                    "OK");
+            if (buttonQuery.getData().startsWith(
+                    UserAction.START.toString())) {
+                start(buttonQuery, userName);
+            }
+            if (buttonQuery.getData().startsWith(
+                    UserAction.ATTACK.toString())) {
+                attack(userName, buttonQuery.getData());
+            }
+
+
         } catch (Exception e) {
             return new SendMessage(chatId,
                     e.getMessage());
         }
+    }
+
+    private SendMessage attack(String chatId,
+                        String userName,
+                        String data) {
+        String battleId = data.replace(UserAction.ATTACK.toString(), "");
+        var battle = battleRepository.findById(battleId);
+        if (battle.isPresent()) {
+            var user = battle.get().getUser(userName);
+            //TODO: user
+            return new SendMessage(chatId,
+                    "OK attack");
+        } else {
+            return new SendMessage(chatId,
+                    "NOT OK !battle.isPresent()");
+        }
+    }
+
+    private SendMessage start(String chatId,
+                              CallbackQuery buttonQuery,
+                              String userName) {
+        User user = userRepository
+                .findById(userName)
+                .get();
+        String userSecondName = buttonQuery.getData()
+                .replace(UserAction.START.toString(), "");
+        User userSecond = userRepository
+                .findById(userSecondName)
+                .get();
+        createBattle(user, userSecond);
+        return new SendMessage(chatId,
+                "OK start");
+    }
+
+    private SendMessage createBattle(User user,
+                                     User userSecond) {
+        battleRepository.save(
+                new Battle(
+                        (new GUID()).toString(),
+                        new HistoryList<>(new HistoryItem<>(BattleState.INIT)),
+                        new Date(),
+                        "",
+                    "",
+                        new UserBattleState(
+                            user.getUserName(),
+                                 UserAction.DEFENSE,
+                                new HistoryList<>(new HistoryItem<>(0L)),
+                                new HistoryList<>(new HistoryItem<>(0L))),
+                        new UserBattleState(
+                            userSecond.getUserName(),
+                                UserAction.DEFENSE,
+                                new HistoryList<>(new HistoryItem<>(0L)),
+                                new HistoryList<>(new HistoryItem<>(0L))
+                    )));
     }
 }

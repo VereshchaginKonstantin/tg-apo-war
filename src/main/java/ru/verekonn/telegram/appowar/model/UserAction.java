@@ -5,5 +5,6 @@ public enum UserAction {
     PREPARE_ATTACK,
     DEFENSE,
     PREPARE_DEFENSE,
-    EXPLORE
+    EXPLORE,
+    START
 }
