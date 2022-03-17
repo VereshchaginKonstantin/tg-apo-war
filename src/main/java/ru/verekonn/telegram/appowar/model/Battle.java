@@ -8,6 +8,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
+import ru.verekonn.telegram.appowar.utils.HistoryItem;
 import ru.verekonn.telegram.appowar.utils.HistoryList;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -26,7 +27,7 @@ public class Battle {
     @Id
     String id;
 
-    HistoryList<BattleState> state;
+    HistoryList<HistoryItem<BattleState>> state;
 
     Date timestamp;
 

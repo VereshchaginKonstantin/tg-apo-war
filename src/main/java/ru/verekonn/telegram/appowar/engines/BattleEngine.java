@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import ru.verekonn.telegram.appowar.model.Battle;
 import ru.verekonn.telegram.appowar.model.BattleState;
 import ru.verekonn.telegram.appowar.model.repository.BattleRepository;
+import ru.verekonn.telegram.appowar.utils.HistoryItem;
 
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
@@ -38,7 +39,7 @@ public class BattleEngine {
         proceedAll(b -> {
             result.add(b);
             if (b.getState().timeSpend() > Battle.END) {
-                b.getState().addValue(BattleState.END);
+                b.getState().add(new HistoryItem<>(BattleState.END));
                 var i = random.nextInt();
                 boolean win = i % 2 == 0;
                 if (win) {

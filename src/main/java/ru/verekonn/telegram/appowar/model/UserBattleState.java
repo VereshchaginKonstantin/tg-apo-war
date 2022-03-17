@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.redis.core.RedisHash;
+import ru.verekonn.telegram.appowar.utils.HistoryItem;
 import ru.verekonn.telegram.appowar.utils.HistoryList;
 
 @Getter
@@ -18,6 +19,6 @@ import ru.verekonn.telegram.appowar.utils.HistoryList;
 @ToString
 public class UserBattleState {
     String userName;
-    HistoryList<Long> attack;
-    HistoryList<Long> defence;
+    HistoryList<HistoryItem<Long>> attack;
+    HistoryList<HistoryItem<Long>> defence;
 }

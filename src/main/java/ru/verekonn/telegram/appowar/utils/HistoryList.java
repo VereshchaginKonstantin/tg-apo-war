@@ -5,19 +5,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-public class HistoryList<T> extends ArrayList<HistoryItem<T>> {
+public class HistoryList<T> extends ArrayList<T> {
 
     public HistoryList(T init) {
-        addValue(init);
+        add(init);
     }
 
     public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
         long diffInMillies = date2.getTime() - date1.getTime();
         return timeUnit.convert(diffInMillies,TimeUnit.SECONDS);
-    }
-
-    public boolean addValue(T end) {
-        return add(new HistoryItem<>(new Date(), end));
     }
 
     public boolean hasChanges(Date timestamp) {
@@ -29,26 +25,22 @@ public class HistoryList<T> extends ArrayList<HistoryItem<T>> {
     }
 
     public Date getStart() {
-        return stream()
+        return ((HistoryItemi) stream()
                 .findFirst()
                 .get()
-                .getTimestamp();
+        ).getTimestamp();
     }
 
     public Date getCurrentDate() {
-        return  getCurrent()
+        return  ((HistoryItemi) getCurrent())
                 .getTimestamp();
     }
 
-    public T getCurrentValue() {
-        return get(size() - 1).getValue();
-    }
-
-    public HistoryItem<T> getCurrent() {
+    public T getCurrent() {
         return get(size() - 1);
     }
 
-    public HistoryItem<T> getPrev() {
+    public T getPrev() {
         if (size() > 1) {
             return get(size() - 2);
         } else {

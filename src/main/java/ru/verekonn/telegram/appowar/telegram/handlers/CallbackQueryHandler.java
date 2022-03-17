@@ -17,6 +17,7 @@ import ru.verekonn.telegram.appowar.model.repository.UserRepository;
 import ru.verekonn.telegram.appowar.model.Battle;
 import ru.verekonn.telegram.appowar.model.User;
 import ru.verekonn.telegram.appowar.model.UserBattleState;
+import ru.verekonn.telegram.appowar.utils.HistoryItem;
 import ru.verekonn.telegram.appowar.utils.HistoryList;
 
 @Component
@@ -40,19 +41,19 @@ public class CallbackQueryHandler {
             battleRepository.save(
                     new Battle(
                             (new GUID()).toString(),
-                            new HistoryList<>(BattleState.START),
+                            new HistoryList<>(new HistoryItem<>(BattleState.START)),
                             new Date(),
                             "",
                         "",
                             new UserBattleState(
                                 user.getUserName(),
-                                new HistoryList<>(0L),
-                                new HistoryList<>(0L)),
+                                    new HistoryList<>(new HistoryItem<>(0L)),
+                                    new HistoryList<>(new HistoryItem<>(0L))),
                             new UserBattleState(
                                 userSecond.getUserName(),
-                                new HistoryList<>(0L),
-                                new HistoryList<>(0L))
-                        ));
+                                    new HistoryList<>(new HistoryItem<>(0L)),
+                                    new HistoryList<>(new HistoryItem<>(0L))
+                        )));
             return new SendMessage(chatId,
                     "OK");
         } catch (Exception e) {

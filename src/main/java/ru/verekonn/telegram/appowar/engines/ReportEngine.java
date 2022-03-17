@@ -30,7 +30,8 @@ public class ReportEngine {
         if (battle.getState().hasChanges(battle.getTimestamp())) {
             if (battle
                     .getState()
-                    .getCurrentValue()
+                    .getCurrent()
+                    .getValue()
                     .equals(BattleState.END)) {
                 sendWin(battle);
             } else {
