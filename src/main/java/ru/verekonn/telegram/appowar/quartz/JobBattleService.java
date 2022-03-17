@@ -25,7 +25,6 @@ import static org.quartz.TriggerBuilder.newTrigger;
 @Component
 public class JobBattleService  implements InitializingBean {
 
-    UserRepository userRepository;
     ApplicationContext applicationContext;
 
     @Override

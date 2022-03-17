@@ -2,7 +2,9 @@ package ru.verekonn.telegram.appowar.engines;
 
 import java.util.List;
 
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -12,6 +14,7 @@ import ru.verekonn.telegram.appowar.model.User;
 import ru.verekonn.telegram.appowar.model.repository.UserRepository;
 import ru.verekonn.telegram.appowar.telegram.WriteReadBot;
 
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
 @Component
 public class ReportEngine {

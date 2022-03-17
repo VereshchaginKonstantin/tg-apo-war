@@ -1,18 +1,16 @@
 package ru.verekonn.telegram.appowar.engines;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.function.Consumer;
 
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
 import ru.verekonn.telegram.appowar.model.Battle;
 import ru.verekonn.telegram.appowar.model.BattleState;
-import ru.verekonn.telegram.appowar.model.repository.BattleRepository;
 import ru.verekonn.telegram.appowar.model.repository.UserRepository;
 
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
 @Component
 public class RewardEngine {
