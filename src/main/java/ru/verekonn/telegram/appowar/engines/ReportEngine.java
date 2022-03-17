@@ -35,9 +35,33 @@ public class ReportEngine {
                     .equals(BattleState.END)) {
                 sendWin(battle);
             }
+            if (battle
+                    .getState()
+                    .getCurrent()
+                    .getValue()
+                    .equals(BattleState.DRAW)) {
+                sendDraw(battle);
+            }
         } else {
-            sendProceed(battle);
+            // sendProceed(battle);
         }
+    }
+
+    private void sendDraw(Battle battle) {
+        String text = "Разошлись ";
+        var userFirst = userRepository
+                .findById(battle
+                        .getUserFirst()
+                        .getUserName())
+                .get();
+        var userSecond = userRepository
+                .findById(battle
+                        .getUserSecond()
+                        .getUserName())
+                .get();
+        text += " " + battle.getUserFirst().getUserName();
+        text += " -> " + battle.getUserSecond().getUserName();
+        send(text, userFirst, userSecond);
     }
 
     private void sendProceed(Battle battle) {

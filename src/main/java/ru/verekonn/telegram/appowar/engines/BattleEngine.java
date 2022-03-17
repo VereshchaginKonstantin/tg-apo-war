@@ -39,6 +39,9 @@ public class BattleEngine {
         proceedAll(b -> {
             result.add(b);
             if (b.getState().timeSpend() > Battle.END) {
+                b.getState().add(new HistoryItem<>(BattleState.DRAW));
+            }
+            if (false) {
                 b.getState().add(new HistoryItem<>(BattleState.END));
                 var i = random.nextInt();
                 boolean win = i % 2 == 0;
@@ -80,7 +83,7 @@ public class BattleEngine {
             if (x.getState()
                     .getCurrent()
                     .getValue()
-                    .equals(BattleState.END)) {
+                    .IsFinal()) {
                 battleRepository.delete(x);
             }
         });
