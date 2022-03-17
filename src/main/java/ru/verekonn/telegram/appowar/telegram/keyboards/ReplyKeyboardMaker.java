@@ -34,6 +34,14 @@ public class ReplyKeyboardMaker {
         return replyKeyboardMarkup;
     }
 
+    public InlineKeyboardMarkup getStartFightMenu() {
+        List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
+        //TODO: !!
+        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+        inlineKeyboardMarkup.setKeyboard(rowList);
+        return inlineKeyboardMarkup;
+    }
+
     public InlineKeyboardMarkup getUsersKeyboard(Iterable<User> userList, String userName) {
 
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();

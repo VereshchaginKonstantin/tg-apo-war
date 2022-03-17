@@ -48,8 +48,13 @@ public class BattleEngine {
     private void step(Battle b) {
         if (b.getState().timeSpendAfterLastChanges() > Battle.END) {
             b.getState().add(new HistoryItem<>(BattleState.DRAW_BY_TIME));
+            return;
         }
-        else if (b
+        if (b.getState().getCurrent().getValue().equals(BattleState.INIT)) {
+            b.getState().add(new HistoryItem<>(BattleState.PROCESS));
+            return;
+        }
+        if (b
                 .getUserFirst()
                 .getAction()
                 .equals(UserAction.ATTACK) ||
@@ -59,7 +64,6 @@ public class BattleEngine {
                 .equals(UserAction.ATTACK)) {
             attack(b);
         }
-
     }
 
     private void attack(Battle b) {
