@@ -34,9 +34,9 @@ public class ReportEngine {
                     .getValue()
                     .equals(BattleState.END)) {
                 sendWin(battle);
-            } else {
-                sendProceed(battle);
             }
+        } else {
+            sendProceed(battle);
         }
     }
 

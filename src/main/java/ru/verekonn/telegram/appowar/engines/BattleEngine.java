@@ -77,7 +77,10 @@ public class BattleEngine {
 
     public void clean() {
         proceedAll(x -> {
-            if (x.getState().equals(BattleState.END)) {
+            if (x.getState()
+                    .getCurrent()
+                    .getValue()
+                    .equals(BattleState.END)) {
                 battleRepository.delete(x);
             }
         });

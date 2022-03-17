@@ -7,21 +7,20 @@ import java.util.concurrent.TimeUnit;
 
 public class HistoryList<T extends History> extends ArrayList<T> {
 
+    public HistoryList() {
+    }
+
     public HistoryList(T init) {
         add(init);
     }
 
     public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
         long diffInMillies = date2.getTime() - date1.getTime();
-        return timeUnit.convert(diffInMillies,TimeUnit.SECONDS);
+        return timeUnit.convert(diffInMillies, TimeUnit.MILLISECONDS);
     }
 
     public boolean hasChanges(Date timestamp) {
-        return getDateDiff(getStart(),
-                timestamp,
-                TimeUnit.NANOSECONDS)
-                >
-                0;
+        return timestamp.before(getCurrentDate());
     }
 
     public Date getStart() {
