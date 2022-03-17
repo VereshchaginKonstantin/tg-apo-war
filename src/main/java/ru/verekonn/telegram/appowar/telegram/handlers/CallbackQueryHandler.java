@@ -80,7 +80,7 @@ public class CallbackQueryHandler {
                 "OK start");
     }
 
-    private SendMessage createBattle(User user,
+    private void createBattle(User user,
                                      User userSecond) {
         battleRepository.save(
                 new Battle(
