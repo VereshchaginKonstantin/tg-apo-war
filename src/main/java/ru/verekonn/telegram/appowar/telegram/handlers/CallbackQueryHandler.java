@@ -34,14 +34,14 @@ public class CallbackQueryHandler {
         try {
             if (buttonQuery.getData().startsWith(
                     UserAction.START.toString())) {
-                start(buttonQuery, userName);
+                return start(chatId, buttonQuery, userName);
             }
             if (buttonQuery.getData().startsWith(
                     UserAction.ATTACK.toString())) {
-                attack(userName, buttonQuery.getData());
+                return attack(chatId, userName, buttonQuery.getData());
             }
-
-
+            return new SendMessage(chatId,
+                    "OK ???");
         } catch (Exception e) {
             return new SendMessage(chatId,
                     e.getMessage());
