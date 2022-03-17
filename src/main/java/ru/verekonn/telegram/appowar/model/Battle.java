@@ -1,11 +1,14 @@
 package ru.verekonn.telegram.appowar.model;
 
+import java.util.Date;
+
 import javax.validation.constraints.Null;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
+import ru.verekonn.telegram.appowar.utils.HistoryList;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
@@ -23,9 +26,9 @@ public class Battle {
     @Id
     String id;
 
-    Long time;
+    HistoryList<BattleState> state;
 
-    BattleState state;
+    Date timestamp;
 
     String winnerUserName;
 

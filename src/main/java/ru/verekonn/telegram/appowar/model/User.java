@@ -30,6 +30,12 @@ public class User {
 
     String chatId;
 
+    Long attackPower;
+
+    Long defencePower;
+
+    Long speed;
+
     Long cash;
 
     Long wins;
