@@ -13,7 +13,7 @@ import ru.verekonn.telegram.appowar.utils.HistoryList;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@RedisHash("user")
+@RedisHash("userbattlestate")
 @Builder
 @ToString
 public class UserBattleState {

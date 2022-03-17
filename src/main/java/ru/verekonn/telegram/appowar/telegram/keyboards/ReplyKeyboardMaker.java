@@ -39,7 +39,7 @@ public class ReplyKeyboardMaker {
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
 
         userList.forEach(u -> {
-            if (!u.getUserName().equals(userName)) {
+            if (u != null && !u.getUserName().equals(userName)) {
                 rowList.add(getButton(
                         ButtonNameEnum.START_FIGHT_USER_TASKS_BUTTON.getButtonName()
                                 + u.getUserName(),

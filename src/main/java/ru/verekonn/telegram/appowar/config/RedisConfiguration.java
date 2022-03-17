@@ -38,6 +38,8 @@ public class RedisConfiguration {
 
     @Bean
     public RedisCustomConversions redisCustomConversions() {
-         return new RedisCustomConversions(Arrays.asList(new UserBattleStateToBytesConverter(), new BytesToUserBattleStateConverter()));
+         return new RedisCustomConversions(Arrays.asList(
+                 new UserBattleStateToBytesConverter(),
+                 new BytesToUserBattleStateConverter()));
     }
 }
