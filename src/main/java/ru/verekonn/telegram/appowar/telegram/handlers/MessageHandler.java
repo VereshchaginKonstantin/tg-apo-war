@@ -41,7 +41,15 @@ public class MessageHandler {
     private User getUser(String userName, String chatId) {
        var user = userRepository.findById(userName);
        if (!user.isPresent()) {
-           userRepository.save(new User(userName, chatId, 100L,0L,0L));
+           userRepository.save(new User(
+                   userName,
+                   chatId,
+                   100L,
+                   100L,
+                   100L,
+                   100L,
+                   0L,
+                   0L));
        } else {
            user.get().setChatId(chatId);
            userRepository.save(user.get());
