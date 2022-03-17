@@ -19,7 +19,7 @@ import ru.verekonn.telegram.appowar.utils.HistoryList;
 @ToString
 public class Battle {
 
-    static public int END = 3;
+    static public int END = 5;
 
     /**
      * Словарное слово

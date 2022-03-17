@@ -39,7 +39,7 @@ public class ReportEngine {
                     .getState()
                     .getCurrent()
                     .getValue()
-                    .equals(BattleState.DRAW)) {
+                    .equals(BattleState.DRAW_BY_TIME)) {
                 sendDraw(battle);
             }
         } else {

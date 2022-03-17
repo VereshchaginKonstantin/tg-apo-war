@@ -12,6 +12,8 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Component;
 import ru.verekonn.telegram.appowar.model.Battle;
 import ru.verekonn.telegram.appowar.model.BattleState;
+import ru.verekonn.telegram.appowar.model.UserAction;
+import ru.verekonn.telegram.appowar.model.UserBattleState;
 import ru.verekonn.telegram.appowar.model.repository.BattleRepository;
 import ru.verekonn.telegram.appowar.utils.HistoryItem;
 
@@ -38,36 +40,52 @@ public class BattleEngine {
         List<Battle> result = new ArrayList<>();
         proceedAll(b -> {
             result.add(b);
-            if (b.getState().timeSpend() > Battle.END) {
-                b.getState().add(new HistoryItem<>(BattleState.DRAW));
-            }
-            if (false) {
-                b.getState().add(new HistoryItem<>(BattleState.END));
-                var i = random.nextInt();
-                boolean win = i % 2 == 0;
-                if (win) {
-                    b.setWinnerUserName(
-                            b
-                                    .getUserFirst()
-                                    .getUserName());
-                    b.setLooserUserName(
-                            b
-                                    .getUserSecond()
-                                    .getUserName());
-                } else {
-                    b.setWinnerUserName(
-                            b
-                                    .getUserSecond()
-                                    .getUserName());
-                    b.setLooserUserName(
-                            b
-                                    .getUserFirst()
-                                    .getUserName());
-                }
-                save(b);
-            }
+            step(b);
         });
         return result;
+    }
+
+    private void step(Battle b) {
+        if (b.getState().timeSpendAfterLastChanges() > Battle.END) {
+            b.getState().add(new HistoryItem<>(BattleState.DRAW_BY_TIME));
+        }
+        else if (b
+                .getUserFirst()
+                .getAction()
+                .equals(UserAction.ATTACK) ||
+                b
+                .getUserSecond()
+                .getAction()
+                .equals(UserAction.ATTACK)) {
+            attack(b);
+        }
+
+    }
+
+    private void attack(Battle b) {
+        b.getState().add(new HistoryItem<>(BattleState.END));
+        var i = random.nextInt();
+        boolean win = i % 2 == 0;
+        if (win) {
+            b.setWinnerUserName(
+                    b
+                            .getUserFirst()
+                            .getUserName());
+            b.setLooserUserName(
+                    b
+                            .getUserSecond()
+                            .getUserName());
+        } else {
+            b.setWinnerUserName(
+                    b
+                            .getUserSecond()
+                            .getUserName());
+            b.setLooserUserName(
+                    b
+                            .getUserFirst()
+                            .getUserName());
+        }
+        save(b);
     }
 
     private void save(Battle b) {

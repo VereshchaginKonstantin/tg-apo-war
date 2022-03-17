@@ -1,9 +1,10 @@
 package ru.verekonn.telegram.appowar.model;
 
 public enum BattleState {
-    DRAW(true),
+    DRAW_BY_TIME(true),
     END(true),
-    START(false);
+    PROCESS(false),
+    INIT(false);
 
     private boolean isFinal;
 

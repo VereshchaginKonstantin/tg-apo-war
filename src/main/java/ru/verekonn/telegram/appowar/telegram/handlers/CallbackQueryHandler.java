@@ -12,6 +12,7 @@ import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import ru.verekonn.telegram.appowar.model.BattleState;
+import ru.verekonn.telegram.appowar.model.UserAction;
 import ru.verekonn.telegram.appowar.model.repository.BattleRepository;
 import ru.verekonn.telegram.appowar.model.repository.UserRepository;
 import ru.verekonn.telegram.appowar.model.Battle;
@@ -41,16 +42,18 @@ public class CallbackQueryHandler {
             battleRepository.save(
                     new Battle(
                             (new GUID()).toString(),
-                            new HistoryList<>(new HistoryItem<>(BattleState.START)),
+                            new HistoryList<>(new HistoryItem<>(BattleState.INIT)),
                             new Date(),
                             "",
                         "",
                             new UserBattleState(
                                 user.getUserName(),
+                                     UserAction.DEFENSE,
                                     new HistoryList<>(new HistoryItem<>(0L)),
                                     new HistoryList<>(new HistoryItem<>(0L))),
                             new UserBattleState(
                                 userSecond.getUserName(),
+                                    UserAction.DEFENSE,
                                     new HistoryList<>(new HistoryItem<>(0L)),
                                     new HistoryList<>(new HistoryItem<>(0L))
                         )));

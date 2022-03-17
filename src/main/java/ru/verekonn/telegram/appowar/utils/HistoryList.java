@@ -50,4 +50,7 @@ public class HistoryList<T extends History> extends ArrayList<T> {
     public long timeSpend() {
         return getDateDiff(getStart(), new Date(), TimeUnit.SECONDS);
     }
+    public long timeSpendAfterLastChanges() {
+        return getDateDiff(getCurrentDate(), new Date(), TimeUnit.SECONDS);
+    }
 }

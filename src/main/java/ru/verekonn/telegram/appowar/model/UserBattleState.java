@@ -19,6 +19,7 @@ import ru.verekonn.telegram.appowar.utils.HistoryList;
 @ToString
 public class UserBattleState {
     String userName;
+    UserAction action;
     HistoryList<HistoryItem<Long>> attack;
     HistoryList<HistoryItem<Long>> defence;
 }
