@@ -21,8 +21,14 @@ public class BattleEngine {
 
     BattleRepository battleRepository;
 
+    public void touch(List<Battle> procceded) {
+        procceded.forEach(this::touch);
+    }
 
-
+    public void touch(Battle b) {
+        b.setTimestamp(new Date());
+        save(b);
+    }
 
     public List<Battle> step() {
         List<Battle> result = new ArrayList<>();
@@ -58,17 +64,11 @@ public class BattleEngine {
     }
 
     private void save(Battle b) {
-        b.setTimestamp(new Date());
         battleRepository.save(b);
     }
 
     private void proceedAll(Consumer<Battle> action) {
         battleRepository.findAll().forEach(action);
-    }
-
-    private void touch(Battle b) {
-        b.setTimestamp(new Date());
-        battleRepository.save(b);
     }
 
     public void clean() {

@@ -34,14 +34,13 @@ public class BattleJob implements Job {
     @Autowired
     ReportEngine reportEngine;
 
-    @Autowired
-    WriteReadBot writeReadBot;
-
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         synchronized (lock) {
             List<Battle> procceded = battleEngine.step();
             rewardEngine.proceedReward(procceded);
+            reportEngine.sendByTimer(procceded);
+            battleEngine.touch(procceded);
             battleEngine.clean();
         }
     }
