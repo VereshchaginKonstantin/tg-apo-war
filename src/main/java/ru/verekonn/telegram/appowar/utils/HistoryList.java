@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-public class HistoryList<T> extends ArrayList<T> {
+public class HistoryList<T extends History> extends ArrayList<T> {
 
     public HistoryList(T init) {
         add(init);
@@ -25,14 +25,14 @@ public class HistoryList<T> extends ArrayList<T> {
     }
 
     public Date getStart() {
-        return ((History) stream()
+        return  stream()
                 .findFirst()
                 .get()
-        ).getTimestamp();
+                .getTimestamp();
     }
 
     public Date getCurrentDate() {
-        return  ((History) getCurrent())
+        return  getCurrent()
                 .getTimestamp();
     }
 
