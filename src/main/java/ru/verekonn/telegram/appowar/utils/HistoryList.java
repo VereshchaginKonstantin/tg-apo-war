@@ -25,14 +25,14 @@ public class HistoryList<T> extends ArrayList<T> {
     }
 
     public Date getStart() {
-        return ((HistoryItemi) stream()
+        return ((History) stream()
                 .findFirst()
                 .get()
         ).getTimestamp();
     }
 
     public Date getCurrentDate() {
-        return  ((HistoryItemi) getCurrent())
+        return  ((History) getCurrent())
                 .getTimestamp();
     }
 

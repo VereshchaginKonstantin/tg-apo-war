@@ -11,7 +11,7 @@ import lombok.ToString;
 @Setter
 @AllArgsConstructor
 @ToString
-public class HistoryItem<T> implements  HistoryItemi {
+public class HistoryItem<T> implements History {
     public HistoryItem(T init) {
         value = init;
         timestamp = new Date();
