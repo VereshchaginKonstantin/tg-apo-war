@@ -1,26 +1,18 @@
 package ru.verekonn.telegram.appowar.telegram.handlers;
 
 import java.io.IOException;
-import java.util.Date;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.apache.poi.hpsf.GUID;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import ru.verekonn.telegram.appowar.engines.BattleEngine;
-import ru.verekonn.telegram.appowar.model.BattleState;
-import ru.verekonn.telegram.appowar.model.UserAction;
-import ru.verekonn.telegram.appowar.model.repository.BattleRepository;
-import ru.verekonn.telegram.appowar.model.repository.UserRepository;
-import ru.verekonn.telegram.appowar.model.Battle;
 import ru.verekonn.telegram.appowar.model.User;
-import ru.verekonn.telegram.appowar.model.UserBattleState;
-import ru.verekonn.telegram.appowar.utils.HistoryItem;
-import ru.verekonn.telegram.appowar.utils.HistoryList;
+import ru.verekonn.telegram.appowar.model.UserAction;
+import ru.verekonn.telegram.appowar.model.repository.UserRepository;
 
 @Component
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
