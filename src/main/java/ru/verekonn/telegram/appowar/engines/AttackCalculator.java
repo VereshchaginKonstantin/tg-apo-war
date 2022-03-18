@@ -9,29 +9,38 @@ import ru.verekonn.telegram.appowar.utils.HistoryList;
 
 public class AttackCalculator {
 
-    static Random random = new Random(2333);
+    static Random random = new Random(9000);
+
+
+    public static boolean checkPercent(long x) {
+        var i = random.nextInt();
+        var rest = i % 100;
+        return rest < x;
+    }
 
     public static AttackResult howWin(
             User attackUser,
             User underAttackUser,
             HistoryList<HistoryItem<UserAction>> underAttackUserAction) {
-        //ax
+        // ax
         var attack = attackUser.getAttackPower();
-        //dy
+        // dy
         var defence = underAttackUser.getDefencePower();
         var isDefenced = underAttackUserAction.getCurrent().getValue()
                 .equals(UserAction.DEFENSE);
-        //dy'
+        // dy'
         var defenceUnderAttackUser = isDefenced ?
                 defence * underAttackUser.getDefenceCoefficient() : defence;
-        //ay
+        // ay
         var contrAttackUnderAttackUser = attack
                 * underAttackUser.getContrAttackCoefficient();
-        // TODO: CHECK
-        var i = random.nextInt();
-        boolean win = i % 2 == 0;
-        if (win) {
+        var attackPercent = 100L * attack / (defenceUnderAttackUser + attack);
+        var contrAttackPercent = 100L * contrAttackUnderAttackUser /
+                (contrAttackUnderAttackUser + attackUser.getDefencePower());
+        if (checkPercent(attackPercent)) {
             return AttackResult.WIN;
+        } else if (checkPercent(contrAttackPercent)) {
+            return AttackResult.LOOSE;
         } else {
             return AttackResult.DEFENDED;
         }
