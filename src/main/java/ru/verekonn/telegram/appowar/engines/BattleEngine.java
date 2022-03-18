@@ -49,14 +49,7 @@ public class BattleEngine {
     }
 
     private void step(Battle b) {
-        if (b.getState().timeSpendAfterLastChanges() > Battle.END) {
-            b.getState().add(new HistoryItem<>(BattleState.DRAW_BY_TIME));
-            return;
-        }
-        if (b.getState().getCurrent().getValue().equals(BattleState.INIT)) {
-            b.getState().add(new HistoryItem<>(BattleState.PROCESS));
-            return;
-        }
+        recalculateStates(b);
         if (b
                 .getUserFirst()
                 .getAction()
@@ -67,6 +60,19 @@ public class BattleEngine {
                 .equals(UserAction.ATTACK)) {
             attack(b);
         }
+        if (b.getState().timeSpendAfterLastChanges() > Battle.END) {
+            b.getState().add(new HistoryItem<>(BattleState.DRAW_BY_TIME));
+            return;
+        }
+        if (b.getState().getCurrent().getValue().equals(BattleState.INIT)) {
+            b.getState().add(new HistoryItem<>(BattleState.PROCESS));
+            return;
+        }
+    }
+
+    private void recalculateStates(Battle b) {
+        //todo: Сделать изменение состояний в степе на основе скорости
+        // а не текущего времени, то-есть будет дата начала плюс скорость если
     }
 
     private void attack(Battle b) {
@@ -118,7 +124,7 @@ public class BattleEngine {
         var battle = battleRepository.findById(battleId);
         if (battle.isPresent()) {
             var user = battle.get().getUser(userName);
-            user.getAction().add(new HistoryItem<>(UserAction.ATTACK));
+            user.getAction().add(new HistoryItem<>(UserAction.PREPARE_ATTACK));
             battleRepository.save(battle.get());
             return true;
 
@@ -130,7 +136,7 @@ public class BattleEngine {
         var battle = battleRepository.findById(battleId);
         if (battle.isPresent()) {
             var user = battle.get().getUser(userName);
-            user.getAction().add(new HistoryItem<>(UserAction.DEFENSE));
+            user.getAction().add(new HistoryItem<>(UserAction.PREPARE_DEFENSE));
             battleRepository.save(battle.get());
             return true;
 

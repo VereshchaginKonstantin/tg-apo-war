@@ -49,7 +49,7 @@ public class CallbackQueryHandler {
                                String userName,
                                String data) {
         String battleId = data.replace(UserAction.DEFENSE.toString(), "");
-        if (battleEngine.attack(battleId, userName)) {
+        if (battleEngine.defence(battleId, userName)) {
             return new SendMessage(chatId,
                     "OK DEFENSE");
         } else {
