@@ -13,7 +13,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class HistoryItem<T> implements History {
+public class HistoryItem<T> implements History, Reportable {
     public HistoryItem(T init) {
         this.value = init;
         this.timestamp = new Date();

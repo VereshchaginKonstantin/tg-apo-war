@@ -11,9 +11,12 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.verekonn.telegram.appowar.model.Battle;
 import ru.verekonn.telegram.appowar.model.BattleState;
 import ru.verekonn.telegram.appowar.model.User;
+import ru.verekonn.telegram.appowar.model.UserAction;
+import ru.verekonn.telegram.appowar.model.repository.BattleRepository;
 import ru.verekonn.telegram.appowar.model.repository.UserRepository;
 import ru.verekonn.telegram.appowar.telegram.WriteReadBot;
 import ru.verekonn.telegram.appowar.telegram.keyboards.ReplyKeyboardMaker;
+import ru.verekonn.telegram.appowar.utils.HistoryItem;
 
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
@@ -21,6 +24,7 @@ import ru.verekonn.telegram.appowar.telegram.keyboards.ReplyKeyboardMaker;
 public class ReportEngine {
 
     WriteReadBot writeReadBot;
+    BattleRepository battleRepository;
     UserRepository userRepository;
     ReplyKeyboardMaker replyKeyboardMaker;
 
@@ -29,36 +33,52 @@ public class ReportEngine {
     }
 
     public void sendByTimer(Battle battle) {
-        if (battle.getState().hasChanges(battle.getTimestamp())) {
-            if (battle
-                    .getState()
-                    .getCurrent()
-                    .getValue()
-                    .equals(BattleState.END)) {
-                sendWin(battle);
-            }
-            if (battle
-                    .getState()
-                    .getCurrent()
-                    .getValue()
-                    .equals(BattleState.DRAW_BY_TIME)) {
-                sendDraw(battle);
-            }
-            if (battle
-                    .getState()
-                    .getCurrent()
-                    .getValue()
-                    .equals(BattleState.PROCESS) &&
-                    battle
-                            .getState()
-                            .getPrev()
-                            .getValue()
-                            .equals(BattleState.INIT)
-            ) {
-                sendStart(battle);
-            }
-        } else {
-            // sendProceed(battle);
+        battle.getUserFirst().getAction().forEach(action -> {
+            reportAction(battle.getUserFirst().getUserName(),
+                    action);
+            action.setReported(true);
+        });
+        battle.getUserSecond().getAction().forEach(action -> {
+            reportAction(battle.getUserSecond().getUserName(),
+                    action);
+            action.setReported(true);
+        });
+        battle.getState().getNotReported().forEach(status -> {
+            reportStatus(battle, status);
+            status.setReported(true);
+        });
+        battleRepository.save(battle);
+    }
+
+    private void reportAction(String userName, HistoryItem<UserAction> action) {
+        String text = action.getValue().toString() + " " + action.getTimestamp().toString();
+        var user = userRepository
+                .findById(userName)
+                .get();
+        send(text, user);
+    }
+
+    private void reportStatus(Battle battle, HistoryItem<BattleState> status) {
+        if (status
+                .getValue()
+                .equals(BattleState.END)) {
+            sendWin(battle);
+        }
+        if (status
+                .getValue()
+                .equals(BattleState.DRAW_BY_TIME)) {
+            sendDraw(battle);
+        }
+        if (status
+                .getValue()
+                .equals(BattleState.PROCESS) &&
+                battle
+                        .getState()
+                        .getPrev()
+                        .getValue()
+                        .equals(BattleState.INIT)
+        ) {
+            sendStart(battle);
         }
     }
 
@@ -87,7 +107,7 @@ public class ReportEngine {
     }
 
     private void sendDraw(Battle battle) {
-        String text = "Разошлись ";
+        String text = "Разошлись(время) ";
         var userFirst = userRepository
                 .findById(battle
                         .getUserFirst()

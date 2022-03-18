@@ -3,9 +3,11 @@ package ru.verekonn.telegram.appowar.utils;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
-public class HistoryList<T extends History> extends ArrayList<T> {
+public class HistoryList<T extends Reportable & History> extends ArrayList<T> {
 
     public HistoryList() {
     }
@@ -52,5 +54,11 @@ public class HistoryList<T extends History> extends ArrayList<T> {
     }
     public long timeSpendAfterLastChanges() {
         return getDateDiff(getCurrentDate(), new Date(), TimeUnit.SECONDS);
+    }
+
+    public List<T> getNotReported() {
+        return stream()
+                .filter(Reportable::isReported)
+                .collect(Collectors.toList());
     }
 }
