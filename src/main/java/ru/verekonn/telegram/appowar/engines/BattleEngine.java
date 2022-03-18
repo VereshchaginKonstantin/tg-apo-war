@@ -3,7 +3,6 @@ package ru.verekonn.telegram.appowar.engines;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.util.function.Consumer;
 
 import lombok.AccessLevel;
@@ -28,9 +27,6 @@ public class BattleEngine {
 
     BattleRepository battleRepository;
     UserRepository userRepository;
-
-    static Random random = new Random(2333);
-
 
     public void touch(List<Battle> procceded) {
         procceded.forEach(this::touch);
@@ -125,31 +121,28 @@ public class BattleEngine {
             var underAttackUser = userRepository
                     .findById(underAttackUserName)
                     .get();
-            var attack = attackUser.getAttackPower();
-            var defence = underAttackUser.getDefencePower();
-            //TODO: Добавить расчёт атаки
-        }
-        // b.getState().add(new HistoryItem<>(BattleState.END));
-        var i = random.nextInt();
-        boolean win = i % 2 == 0;
-        if (win) {
-            b.setWinnerUserName(
-                    b
-                            .getUserFirst()
-                            .getUserName());
-            b.setLooserUserName(
-                    b
-                            .getUserSecond()
-                            .getUserName());
-        } else {
-            b.setWinnerUserName(
-                    b
-                            .getUserSecond()
-                            .getUserName());
-            b.setLooserUserName(
-                    b
-                            .getUserFirst()
-                            .getUserName());
+
+            var result = AttackCalculator.howWin(attackUser,
+                    underAttackUser,
+                    b.getUser(underAttackUserName).getAction());
+            if (result.equals(AttackResult.WIN)) {
+                b.setWinnerUserName(attackUserName);
+                b.setLooserUserName(underAttackUserName);
+                b.getState().add(new HistoryItem<>(BattleState.END));
+            }
+            if (result.equals(AttackResult.LOOSE)) {
+                b.setWinnerUserName(underAttackUserName);
+                b.setLooserUserName(attackUserName);
+                b.getState().add(new HistoryItem<>(BattleState.END));
+            }
+            if (result.equals(AttackResult.DEFENDED)) {
+                b.getUser(attackUserName)
+                        .getAction()
+                        .add(new HistoryItem<>(UserAction.PREPARE_DEFENSE));
+                b.getUser(underAttackUserName)
+                        .getAction()
+                        .add(new HistoryItem<>(UserAction.DEFENSE));
+            }
         }
         save(b);
     }
