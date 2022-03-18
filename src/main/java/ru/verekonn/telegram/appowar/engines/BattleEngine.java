@@ -86,7 +86,11 @@ public class BattleEngine {
                 .equals(UserAction.PREPARE_ATTACK)) {
             var changeDate = current.getTimestamp();
             var nextdate = new Date(changeDate.getTime() + user.getSpeedAttackMs());
+            if (nextdate.before(dateNow)) {
+                userState.getAction().add(new HistoryItem<>(UserAction.ATTACK, nextdate));
+            }
         }
+        battleRepository.save(b);
     }
 
     private void attack(Battle b) {

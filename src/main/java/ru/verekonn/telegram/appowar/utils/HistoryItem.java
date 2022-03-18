@@ -15,8 +15,13 @@ import lombok.ToString;
 @ToString
 public class HistoryItem<T> implements History {
     public HistoryItem(T init) {
-        value = init;
-        timestamp = new Date();
+        this.value = init;
+        this.timestamp = new Date();
+    }
+
+    public HistoryItem(T init, Date timestamp) {
+        this.value = init;
+        this.timestamp = timestamp;
     }
 
     Date timestamp;
