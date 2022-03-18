@@ -1,17 +1,12 @@
 package ru.verekonn.telegram.appowar.model;
 
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
-
-import java.util.List;
 
 @AllArgsConstructor
 @Getter
@@ -34,7 +29,9 @@ public class User {
 
     Long defencePower;
 
-    Long speed;
+    Long speedDefence;
+
+    Long speedAttack;
 
     Long cash;
 

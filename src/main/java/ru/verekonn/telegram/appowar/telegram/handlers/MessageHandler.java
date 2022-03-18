@@ -46,7 +46,8 @@ public class MessageHandler {
                    chatId,
                    100L,
                    100L,
-                   100L,
+                   3L,
+                   3L,
                    100L,
                    0L,
                    0L));
