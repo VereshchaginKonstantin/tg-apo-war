@@ -73,8 +73,6 @@ public class BattleEngine {
     }
 
     private void recalculateStates(Battle b) {
-        //todo: Сделать изменение состояний в степе на основе скорости
-        // а не текущего времени, то-есть будет дата начала плюс скорость если
         var dateNow = new Date();
         var userState = b.getUserFirst();
         nextAttack(dateNow, userState);
