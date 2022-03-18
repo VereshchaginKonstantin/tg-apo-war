@@ -77,6 +77,31 @@ public class BattleEngine {
         // а не текущего времени, то-есть будет дата начала плюс скорость если
         var dateNow = new Date();
         var userState = b.getUserFirst();
+        nextAttack(dateNow, userState);
+        nextDefence(dateNow, userState);
+        userState = b.getUserSecond();
+        nextAttack(dateNow, userState);
+        nextDefence(dateNow, userState);
+        battleRepository.save(b);
+    }
+
+    private void nextDefence(Date dateNow, UserBattleState userState) {
+        var user = userRepository
+                .findById(userState.getUserName())
+                .get();
+        var current = userState.getAction()
+                .getCurrent();
+        if (current.getValue()
+                .equals(UserAction.PREPARE_DEFENSE)) {
+            var changeDate = current.getTimestamp();
+            var nextdate = new Date(changeDate.getTime() + user.getSpeedAttackMs());
+            if (nextdate.before(dateNow)) {
+                userState.getAction().add(new HistoryItem<>(UserAction.DEFENSE, nextdate));
+            }
+        }
+    }
+
+    private void nextAttack(Date dateNow, UserBattleState userState) {
         var user = userRepository
                 .findById(userState.getUserName())
                 .get();
@@ -90,7 +115,6 @@ public class BattleEngine {
                 userState.getAction().add(new HistoryItem<>(UserAction.ATTACK, nextdate));
             }
         }
-        battleRepository.save(b);
     }
 
     private void attack(Battle b) {
