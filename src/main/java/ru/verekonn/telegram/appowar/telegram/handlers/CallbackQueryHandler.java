@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
+import ru.verekonn.telegram.appowar.engines.BattleEngine;
 import ru.verekonn.telegram.appowar.model.BattleState;
 import ru.verekonn.telegram.appowar.model.UserAction;
 import ru.verekonn.telegram.appowar.model.repository.BattleRepository;
@@ -25,7 +26,7 @@ import ru.verekonn.telegram.appowar.utils.HistoryList;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
 public class CallbackQueryHandler {
-    BattleRepository battleRepository;
+    BattleEngine battleEngine;
     UserRepository userRepository;
 
     public BotApiMethod<?> processCallbackQuery(CallbackQuery buttonQuery) throws IOException {
@@ -40,6 +41,10 @@ public class CallbackQueryHandler {
                     UserAction.ATTACK.toString())) {
                 return attack(chatId, userName, buttonQuery.getData());
             }
+            if (buttonQuery.getData().startsWith(
+                    UserAction.DEFENSE.toString())) {
+                return defence(chatId, userName, buttonQuery.getData());
+            }
             return new SendMessage(chatId,
                     "OK ???");
         } catch (Exception e) {
@@ -48,19 +53,29 @@ public class CallbackQueryHandler {
         }
     }
 
+    private SendMessage defence(String chatId,
+                               String userName,
+                               String data) {
+        String battleId = data.replace(UserAction.DEFENSE.toString(), "");
+        if (battleEngine.attack(battleId, userName)) {
+            return new SendMessage(chatId,
+                    "OK DEFENSE");
+        } else {
+            return new SendMessage(chatId,
+                    "NOT OK");
+        }
+    }
+
     private SendMessage attack(String chatId,
                         String userName,
                         String data) {
         String battleId = data.replace(UserAction.ATTACK.toString(), "");
-        var battle = battleRepository.findById(battleId);
-        if (battle.isPresent()) {
-            var user = battle.get().getUser(userName);
-            //TODO: user
+        if (battleEngine.attack(battleId, userName)) {
             return new SendMessage(chatId,
-                    "OK attack");
+                    "OK ATTACK");
         } else {
             return new SendMessage(chatId,
-                    "NOT OK !battle.isPresent()");
+                    "NOT OK");
         }
     }
 
@@ -75,30 +90,9 @@ public class CallbackQueryHandler {
         User userSecond = userRepository
                 .findById(userSecondName)
                 .get();
-        createBattle(user, userSecond);
+        battleEngine.createBattle(user, userSecond);
         return new SendMessage(chatId,
                 "OK start");
     }
 
-    private void createBattle(User user,
-                                     User userSecond) {
-        battleRepository.save(
-                new Battle(
-                        (new GUID()).toString(),
-                        new HistoryList<>(new HistoryItem<>(BattleState.INIT)),
-                        new Date(),
-                        "",
-                    "",
-                        new UserBattleState(
-                            user.getUserName(),
-                                 UserAction.DEFENSE,
-                                new HistoryList<>(new HistoryItem<>(0L)),
-                                new HistoryList<>(new HistoryItem<>(0L))),
-                        new UserBattleState(
-                            userSecond.getUserName(),
-                                UserAction.DEFENSE,
-                                new HistoryList<>(new HistoryItem<>(0L)),
-                                new HistoryList<>(new HistoryItem<>(0L))
-                    )));
-    }
 }

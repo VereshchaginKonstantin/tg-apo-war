@@ -9,13 +9,16 @@ import java.util.function.Consumer;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.apache.poi.hpsf.GUID;
 import org.springframework.stereotype.Component;
 import ru.verekonn.telegram.appowar.model.Battle;
 import ru.verekonn.telegram.appowar.model.BattleState;
+import ru.verekonn.telegram.appowar.model.User;
 import ru.verekonn.telegram.appowar.model.UserAction;
 import ru.verekonn.telegram.appowar.model.UserBattleState;
 import ru.verekonn.telegram.appowar.model.repository.BattleRepository;
 import ru.verekonn.telegram.appowar.utils.HistoryItem;
+import ru.verekonn.telegram.appowar.utils.HistoryList;
 
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
@@ -109,5 +112,46 @@ public class BattleEngine {
                 battleRepository.delete(x);
             }
         });
+    }
+
+    public boolean attack(String battleId, String userName) {
+        var battle = battleRepository.findById(battleId);
+        if (battle.isPresent()) {
+            var user = battle.get().getUser(userName);
+            user.getAction().add(new HistoryItem<>(UserAction.ATTACK));
+            battleRepository.save(battle.get());
+            return true;
+
+        }
+        return false;
+    }
+
+    public boolean defence(String battleId, String userName) {
+        var battle = battleRepository.findById(battleId);
+        if (battle.isPresent()) {
+            var user = battle.get().getUser(userName);
+            user.getAction().add(new HistoryItem<>(UserAction.DEFENSE));
+            battleRepository.save(battle.get());
+            return true;
+
+        }
+        return false;
+    }
+
+    public void createBattle(User user, User userSecond) {
+            battleRepository.save(
+                    new Battle(
+                            (new GUID()).toString(),
+                            new HistoryList<>(new HistoryItem<>(BattleState.INIT)),
+                            new Date(),
+                            "",
+                            "",
+                            new UserBattleState(
+                                    user.getUserName(),
+                                    new HistoryList<>(new HistoryItem<>(UserAction.DEFENSE))),
+                            new UserBattleState(
+                                    userSecond.getUserName(),
+                                    new HistoryList<>(new HistoryItem<>(UserAction.DEFENSE)))
+                                    ));
     }
 }
