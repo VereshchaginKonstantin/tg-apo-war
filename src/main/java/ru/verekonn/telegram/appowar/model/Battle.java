@@ -52,6 +52,43 @@ public class Battle {
         return this.id.hashCode();
     }
 
+    public String getOtherUser(String userName) {
+        if (userFirst.getUserName().equals(userName)) {
+            return userSecond.getUserName();
+        } else {
+            return userFirst.getUserName();
+        }
+    }
+
+    public String getAttackUser() {
+        var u1 = userFirst
+                .getAction()
+                .getCurrent();
+        var u2 = userFirst
+                .getAction()
+                .getCurrent();
+        if (u1.getValue().equals(UserAction.ATTACK) &&
+                !u2.getValue().equals(UserAction.ATTACK)
+        ) {
+            return userFirst.getUserName();
+        }
+        if (!u1.getValue().equals(UserAction.ATTACK) &&
+                u2.getValue().equals(UserAction.ATTACK)
+        ) {
+            return userFirst.getUserName();
+        }
+        if (u1.getValue().equals(UserAction.ATTACK) &&
+                u2.getValue().equals(UserAction.ATTACK)
+        ) {
+            if (u1.getTimestamp().before(u2.getTimestamp())) {
+                return userFirst.getUserName();
+            } else {
+                return userSecond.getUserName();
+            }
+        }
+        return null;
+    }
+
     public UserBattleState getUser(String userName) {
         if (userFirst.getUserName().equals(userName)) {
             return userFirst;
@@ -59,4 +96,5 @@ public class Battle {
             return userSecond;
         }
     }
+
 }

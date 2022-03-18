@@ -116,7 +116,19 @@ public class BattleEngine {
     }
 
     private void attack(Battle b) {
-        b.getState().add(new HistoryItem<>(BattleState.END));
+        var attackUserName = b.getAttackUser();
+        var underAttackUserName = b.getOtherUser(attackUserName);
+        if (attackUserName != null) {
+            var attackUser = userRepository
+                    .findById(attackUserName)
+                    .get();
+            var underAttackUser = userRepository
+                    .findById(underAttackUserName)
+                    .get();
+            var attack = attackUser.getAttackPower();
+            var defence = underAttackUser.getDefencePower();
+        }
+        // b.getState().add(new HistoryItem<>(BattleState.END));
         var i = random.nextInt();
         boolean win = i % 2 == 0;
         if (win) {
