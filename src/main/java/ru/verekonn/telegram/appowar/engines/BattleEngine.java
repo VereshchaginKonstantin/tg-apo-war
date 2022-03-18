@@ -17,6 +17,7 @@ import ru.verekonn.telegram.appowar.model.User;
 import ru.verekonn.telegram.appowar.model.UserAction;
 import ru.verekonn.telegram.appowar.model.UserBattleState;
 import ru.verekonn.telegram.appowar.model.repository.BattleRepository;
+import ru.verekonn.telegram.appowar.model.repository.UserRepository;
 import ru.verekonn.telegram.appowar.utils.HistoryItem;
 import ru.verekonn.telegram.appowar.utils.HistoryList;
 
@@ -26,6 +27,7 @@ import ru.verekonn.telegram.appowar.utils.HistoryList;
 public class BattleEngine {
 
     BattleRepository battleRepository;
+    UserRepository userRepository;
 
     static Random random = new Random(2333);
 
@@ -73,6 +75,18 @@ public class BattleEngine {
     private void recalculateStates(Battle b) {
         //todo: Сделать изменение состояний в степе на основе скорости
         // а не текущего времени, то-есть будет дата начала плюс скорость если
+        var dateNow = new Date();
+        var userState = b.getUserFirst();
+        var user = userRepository
+                .findById(userState.getUserName())
+                .get();
+        var current = userState.getAction()
+                .getCurrent();
+        if (current.getValue()
+                .equals(UserAction.PREPARE_ATTACK)) {
+            var changeDate = current.getTimestamp();
+            var nextdate = new Date(changeDate.getTime() + user.getSpeedAttackMs());
+        }
     }
 
     private void attack(Battle b) {

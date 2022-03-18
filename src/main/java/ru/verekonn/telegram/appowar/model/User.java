@@ -29,9 +29,9 @@ public class User {
 
     Long defencePower;
 
-    Long speedDefence;
+    Long speedDefenceMs;
 
-    Long speedAttack;
+    Long speedAttackMs;
 
     Long cash;
 
