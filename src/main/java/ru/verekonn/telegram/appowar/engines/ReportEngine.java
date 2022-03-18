@@ -73,7 +73,7 @@ public class ReportEngine {
         text += " " + battle.getUserFirst().getUserName();
         text += " -> " + battle.getUserSecond().getUserName();
         send(text, userFirst);
-        sendStartFightMenu(text, userFirst);
+        sendStartFightMenu(battle, text, userFirst);
 
         var userSecond = userRepository
                 .findById(battle
@@ -83,7 +83,7 @@ public class ReportEngine {
         text = "Видим неприятеля - что будем делать?";
         text += " " + battle.getUserFirst().getUserName();
         text += " -> " + battle.getUserSecond().getUserName();
-        sendStartFightMenu(text, userSecond);
+        sendStartFightMenu(battle, text, userSecond);
     }
 
     private void sendDraw(Battle battle) {
@@ -118,11 +118,11 @@ public class ReportEngine {
         send(text, userFirst, userSecond);
     }
 
-    private void sendStartFightMenu(String text, User user) {
+    private void sendStartFightMenu(Battle battle, String text, User user) {
         SendMessage message =
                 new SendMessage(user.getChatId(), text);
         var menu =
-                replyKeyboardMaker.getStartFightMenu();
+                replyKeyboardMaker.getStartFightMenu(battle);
         message.setReplyMarkup(menu);
         try {
             writeReadBot

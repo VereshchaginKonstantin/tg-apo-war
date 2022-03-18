@@ -6,6 +6,8 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMar
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
+import ru.verekonn.telegram.appowar.model.Battle;
+import ru.verekonn.telegram.appowar.model.UserAction;
 import ru.verekonn.telegram.appowar.telegram.constants.bot.ButtonNameEnum;
 import ru.verekonn.telegram.appowar.model.User;
 
@@ -34,9 +36,12 @@ public class ReplyKeyboardMaker {
         return replyKeyboardMarkup;
     }
 
-    public InlineKeyboardMarkup getStartFightMenu() {
+    public InlineKeyboardMarkup getStartFightMenu(Battle battle) {
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
-        //TODO: !!
+        rowList.add(getButton(UserAction.ATTACK.getButtonName(),
+                UserAction.ATTACK + battle.getId()));
+        rowList.add(getButton(UserAction.DEFENSE.getButtonName(),
+                UserAction.DEFENSE + battle.getId()));
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
         inlineKeyboardMarkup.setKeyboard(rowList);
         return inlineKeyboardMarkup;
