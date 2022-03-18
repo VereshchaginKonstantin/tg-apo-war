@@ -127,6 +127,7 @@ public class BattleEngine {
                     .get();
             var attack = attackUser.getAttackPower();
             var defence = underAttackUser.getDefencePower();
+            //TODO: Добавить расчёт атаки
         }
         // b.getState().add(new HistoryItem<>(BattleState.END));
         var i = random.nextInt();
