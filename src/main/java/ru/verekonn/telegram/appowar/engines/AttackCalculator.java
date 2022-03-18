@@ -22,9 +22,11 @@ public class AttackCalculator {
         var isDefenced = underAttackUserAction.getCurrent().getValue()
                 .equals(UserAction.DEFENSE);
         //dy'
-        var defenceUnderAttackUser = isDefenced ? defence * underAttackUser.getDefenceCoefficient() : defence;
+        var defenceUnderAttackUser = isDefenced ?
+                defence * underAttackUser.getDefenceCoefficient() : defence;
         //ay
-        var contrAttackUnderAttackUser = attack * underAttackUser.getContrAttackCoefficient();
+        var contrAttackUnderAttackUser = attack
+                * underAttackUser.getContrAttackCoefficient();
         // TODO: CHECK
         var i = random.nextInt();
         boolean win = i % 2 == 0;
