@@ -33,6 +33,10 @@ public class User {
 
     Long speedAttackMs;
 
+    Long defenceCoefficient;
+
+    Long contrAttackCoefficient;
+
     Long cash;
 
     Long wins;

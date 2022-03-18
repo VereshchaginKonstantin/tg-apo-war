@@ -10,17 +10,22 @@ import ru.verekonn.telegram.appowar.utils.HistoryList;
 public class AttackCalculator {
 
     static Random random = new Random(2333);
-    static Long defenceCoef = 2;
 
     public static AttackResult howWin(
             User attackUser,
             User underAttackUser,
             HistoryList<HistoryItem<UserAction>> underAttackUserAction) {
+        //ax
         var attack = attackUser.getAttackPower();
+        //dy
         var defence = underAttackUser.getDefencePower();
         var isDefenced = underAttackUserAction.getCurrent().getValue()
                 .equals(UserAction.DEFENSE);
-        defence = isDefenced ? defence * defenceCoef : defence;
+        //dy'
+        var defenceUnderAttackUser = isDefenced ? defence * underAttackUser.getDefenceCoefficient() : defence;
+        //ay
+        var contrAttackUnderAttackUser = attack * underAttackUser.getContrAttackCoefficient();
+        // TODO: CHECK
         var i = random.nextInt();
         boolean win = i % 2 == 0;
         if (win) {

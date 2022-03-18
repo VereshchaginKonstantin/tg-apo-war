@@ -48,7 +48,9 @@ public class MessageHandler {
                    100L,
                    3000L,
                    3000L,
-                   100L,
+                   2L,
+                   (long) 0.5,
+                   0L,
                    0L,
                    0L));
        } else {
