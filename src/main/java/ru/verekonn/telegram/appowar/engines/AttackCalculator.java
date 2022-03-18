@@ -15,6 +15,7 @@ public class AttackCalculator {
             User attackUser,
             User underAttackUser,
             HistoryList<HistoryItem<UserAction>> underAttackUserAction) {
+        //TODO: Добавить расчёт атаки
         var i = random.nextInt();
         boolean win = i % 2 == 0;
         if (win) {
