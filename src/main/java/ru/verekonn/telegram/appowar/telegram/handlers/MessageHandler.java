@@ -49,7 +49,7 @@ public class MessageHandler {
                    6000L,
                    3000L,
                    2L,
-                   (long) 0.5,
+                   0.5,
                    0L,
                    0L,
                    0L));

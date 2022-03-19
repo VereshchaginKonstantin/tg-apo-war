@@ -12,7 +12,7 @@ public class AttackCalculator {
     static Random random = new Random(9000);
 
 
-    public static boolean checkPercent(long x) {
+    public static boolean checkPercent(double x) {
         var i = random.nextInt();
         var rest = i % 100;
         return rest < x;

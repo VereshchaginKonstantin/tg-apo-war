@@ -33,9 +33,9 @@ public class User {
 
     Long speedAttackMs;
 
-    Long defenceCoefficient;
+    double defenceCoefficient;
 
-    Long contrAttackCoefficient;
+    double contrAttackCoefficient;
 
     Long cash;
 
