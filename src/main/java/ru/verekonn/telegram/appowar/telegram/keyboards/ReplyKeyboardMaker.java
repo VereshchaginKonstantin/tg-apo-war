@@ -47,7 +47,7 @@ public class ReplyKeyboardMaker {
         return inlineKeyboardMarkup;
     }
 
-    public InlineKeyboardMarkup getUsersKeyboard(Iterable<User> userList, String userName) {
+    public InlineKeyboardMarkup getUsersKeyboardForStart(Iterable<User> userList, String userName) {
 
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
 
@@ -56,7 +56,7 @@ public class ReplyKeyboardMaker {
                 rowList.add(getButton(
                         ButtonNameEnum.START_FIGHT_USER_TASKS_BUTTON.getButtonName()
                                 + u.getUserName(),
-                        u.getUserName()));
+                        UserAction.START + u.getUserName()));
             }
         });
 

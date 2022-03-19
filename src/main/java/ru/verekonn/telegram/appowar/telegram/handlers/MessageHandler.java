@@ -74,7 +74,7 @@ public class MessageHandler {
                 ButtonNameEnum.START_FIGHT_USER_TASKS_BUTTON.getButtonName());
 
         var list = replyKeyboardMaker
-                .getUsersKeyboard(
+                .getUsersKeyboardForStart(
                         userRepository.findAll(),
                         userName
                 );
