@@ -33,14 +33,22 @@ public class ReportEngine {
     }
 
     public void sendByTimer(Battle battle) {
-        battle.getUserFirst().getAction().forEach(action -> {
+        battle
+                .getUserFirst()
+                .getAction()
+                .getNotReported()
+                .forEach(action -> {
             reportAction(
                     battle.getUserFirst().getUserName(),
                     battle.getUserSecond().getUserName(),
                     action);
             action.setReported(true);
         });
-        battle.getUserSecond().getAction().forEach(action -> {
+        battle
+                .getUserSecond()
+                .getAction()
+                .getNotReported()
+                .forEach(action -> {
             reportAction(
                     battle.getUserSecond().getUserName(),
                     battle.getUserFirst().getUserName(),
