@@ -14,7 +14,7 @@ public class AttackCalculator {
 
     public static boolean checkPercent(double x) {
         var i = random.nextInt();
-        var rest = i % 100;
+        var rest = Math.abs(i % 100);
         return rest < x;
     }
 
