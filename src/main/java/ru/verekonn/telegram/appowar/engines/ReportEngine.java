@@ -70,18 +70,16 @@ public class ReportEngine {
         send(userName
                 + " message:"
                 + text, user);
-        if (action.getValue().isBroadcast()) {
-            text = userName
-                    + " message:"
-                    + "Только для отладки(потом скрыто будет)! - "
-                    + action.getValue().toString()
-                    + " "
-                    + action.getTimestamp().toString();
-            user = userRepository
-                    .findById(otherUserName)
-                    .get();
-            send(text, user);
-        }
+        text = userName
+                + " message:"
+                + "Только для отладки(потом скрыто будет)! - "
+                + action.getValue().toString()
+                + " "
+                + action.getTimestamp().toString();
+        user = userRepository
+                .findById(otherUserName)
+                .get();
+        send(text, user);
     }
 
     private void reportStatus(Battle battle, HistoryItem<BattleState> status) {
