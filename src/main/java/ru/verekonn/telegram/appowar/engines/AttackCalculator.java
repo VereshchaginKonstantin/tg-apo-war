@@ -26,7 +26,9 @@ public class AttackCalculator {
         var attack = attackUser.getAttackPower();
         // dy
         var defence = underAttackUser.getDefencePower();
-        var isDefenced = underAttackUserAction.getCurrent().getValue()
+        var isDefenced = underAttackUserAction
+                .getCurrent()
+                .getValue()
                 .equals(UserAction.DEFENSE);
         // dy'
         var defenceUnderAttackUser = isDefenced ?

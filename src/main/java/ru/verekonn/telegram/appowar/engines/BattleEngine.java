@@ -51,10 +51,12 @@ public class BattleEngine {
         if (b
                 .getUserFirst()
                 .getAction()
+                .getCurrent()
                 .equals(UserAction.ATTACK) ||
                 b
                 .getUserSecond()
                 .getAction()
+                .getCurrent()
                 .equals(UserAction.ATTACK)) {
             attack(b);
         }
