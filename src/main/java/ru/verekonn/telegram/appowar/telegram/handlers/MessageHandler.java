@@ -48,8 +48,8 @@ public class MessageHandler {
                    100L,
                    6000L,
                    3000L,
-                   2L,
-                   0.5,
+                   4L,
+                   0.2,
                    0L,
                    0L,
                    0L));
