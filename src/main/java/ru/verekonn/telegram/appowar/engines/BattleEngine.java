@@ -92,7 +92,7 @@ public class BattleEngine {
         if (current.getValue()
                 .equals(UserAction.PREPARE_DEFENSE)) {
             var changeDate = current.getTimestamp();
-            var nextdate = new Date(changeDate.getTime() + user.getSpeedAttackMs());
+            var nextdate = new Date(changeDate.getTime() + user.getSpeedDefenceMs());
             if (nextdate.before(dateNow)) {
                 userState.getAction().add(new HistoryItem<>(UserAction.DEFENSE, nextdate));
             }
