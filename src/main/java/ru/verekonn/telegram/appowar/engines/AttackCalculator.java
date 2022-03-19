@@ -1,7 +1,9 @@
 package ru.verekonn.telegram.appowar.engines;
 
 import java.util.Random;
+import java.util.logging.Logger;
 
+import org.apache.logging.log4j.Level;
 import ru.verekonn.telegram.appowar.model.User;
 import ru.verekonn.telegram.appowar.model.UserAction;
 import ru.verekonn.telegram.appowar.utils.HistoryItem;
@@ -21,7 +23,8 @@ public class AttackCalculator {
     public static AttackResult howWin(
             User attackUser,
             User underAttackUser,
-            HistoryList<HistoryItem<UserAction>> underAttackUserAction) {
+            HistoryList<HistoryItem<UserAction>> underAttackUserAction,
+            HistoryList<HistoryItem<UserAction>> attackUserAction) {
         // ax
         var attack = attackUser.getAttackPower();
         // dy
@@ -29,7 +32,12 @@ public class AttackCalculator {
         var isDefenced = underAttackUserAction
                 .getCurrent()
                 .getValue()
-                .equals(UserAction.DEFENSE);
+                .equals(UserAction.DEFENSE) &&
+                underAttackUserAction
+                        .getCurrentDate()
+                        .before(
+               attackUserAction.getCurrentDate()
+                        );
         // dy'
         var defenceUnderAttackUser = isDefenced ?
                 defence * underAttackUser.getDefenceCoefficient() : defence;
