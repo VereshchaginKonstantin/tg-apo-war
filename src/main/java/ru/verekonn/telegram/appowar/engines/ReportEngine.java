@@ -51,7 +51,7 @@ public class ReportEngine {
             var user = userRepository
                     .findById(battle.getUserFirst().getUserName())
                     .get();
-            sendStartFightMenu(battle, "", user);
+            sendStartFightMenu(battle, "Что дальше? ", user);
         }
         any.set(false);
         battle
@@ -70,7 +70,7 @@ public class ReportEngine {
             var user = userRepository
                     .findById(battle.getUserSecond().getUserName())
                     .get();
-            sendStartFightMenu(battle, "", user);
+            sendStartFightMenu(battle, "Что дальше? ", user);
         }
         battle.getState().getNotReported().forEach(status -> {
             reportStatus(battle, status);
