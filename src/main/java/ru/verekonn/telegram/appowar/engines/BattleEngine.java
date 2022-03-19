@@ -126,22 +126,48 @@ public class BattleEngine {
                     underAttackUser,
                     b.getUser(underAttackUserName).getAction());
             if (result.equals(AttackResult.WIN)) {
+                b.getUser(attackUserName).getAction()
+                        .add(new HistoryItem<>(UserAction.ATTACK_SUCCESS));
+                b.getUser(underAttackUserName).getAction()
+                        .add(new HistoryItem<>(UserAction.KILLED));
                 b.setWinnerUserName(attackUserName);
                 b.setLooserUserName(underAttackUserName);
                 b.getState().add(new HistoryItem<>(BattleState.END));
             }
             if (result.equals(AttackResult.LOOSE)) {
+                b.getUser(attackUserName).getAction()
+                        .add(new HistoryItem<>(UserAction.ATTACK_FAILED));
+                b.getUser(attackUserName).getAction()
+                        .add(new HistoryItem<>(UserAction.DEFENSE_FAILED));
+                b.getUser(attackUserName).getAction()
+                        .add(new HistoryItem<>(UserAction.KILLED));
+                b.getUser(underAttackUserName).getAction()
+                        .add(new HistoryItem<>(UserAction.DEFENSE_SUCCESS));
+                b.getUser(underAttackUserName).getAction()
+                        .add(new HistoryItem<>(UserAction.CONTR_ATTACK));
+                b.getUser(underAttackUserName).getAction()
+                        .add(new HistoryItem<>(UserAction.ATTACK_SUCCESS));
                 b.setWinnerUserName(underAttackUserName);
                 b.setLooserUserName(attackUserName);
                 b.getState().add(new HistoryItem<>(BattleState.END));
             }
             if (result.equals(AttackResult.DEFENDED)) {
+                b.getUser(attackUserName).getAction()
+                        .add(new HistoryItem<>(UserAction.ATTACK_FAILED));
+                b.getUser(attackUserName).getAction()
+                        .add(new HistoryItem<>(UserAction.DEFENSE_SUCCESS));
+                b.getUser(underAttackUserName).getAction()
+                        .add(new HistoryItem<>(UserAction.DEFENSE_SUCCESS));
+                b.getUser(underAttackUserName).getAction()
+                        .add(new HistoryItem<>(UserAction.CONTR_ATTACK));
+                b.getUser(underAttackUserName).getAction()
+                        .add(new HistoryItem<>(UserAction.ATTACK_FAILED));
                 b.getUser(attackUserName)
                         .getAction()
                         .add(new HistoryItem<>(UserAction.PREPARE_DEFENSE));
                 b.getUser(underAttackUserName)
                         .getAction()
-                        .add(new HistoryItem<>(UserAction.DEFENSE));
+                        .add(new HistoryItem<>(UserAction.PREPARE_DEFENSE));
             }
         }
         save(b);
