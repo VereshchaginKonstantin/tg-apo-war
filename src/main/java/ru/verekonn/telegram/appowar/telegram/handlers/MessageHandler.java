@@ -46,7 +46,7 @@ public class MessageHandler {
                    chatId,
                    100L,
                    100L,
-                   6000L,
+                   10000L,
                    3000L,
                    4L,
                    0.2,
