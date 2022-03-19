@@ -1,6 +1,7 @@
 package ru.verekonn.telegram.appowar.engines;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,7 @@ public class ReportEngine {
     }
 
     public void sendByTimer(Battle battle) {
+        AtomicBoolean any = new AtomicBoolean(false);
         battle
                 .getUserFirst()
                 .getAction()
@@ -43,7 +45,15 @@ public class ReportEngine {
                     battle.getUserSecond().getUserName(),
                     action);
             action.setReported(true);
+                    any.set(true);
         });
+        if (any.get()) {
+            var user = userRepository
+                    .findById(battle.getUserFirst().getUserName())
+                    .get();
+            sendStartFightMenu(battle, "", user);
+        }
+        any.set(false);
         battle
                 .getUserSecond()
                 .getAction()
@@ -54,7 +64,14 @@ public class ReportEngine {
                     battle.getUserFirst().getUserName(),
                     action);
             action.setReported(true);
+            any.set(true);
         });
+        if (any.get()) {
+            var user = userRepository
+                    .findById(battle.getUserSecond().getUserName())
+                    .get();
+            sendStartFightMenu(battle, "", user);
+        }
         battle.getState().getNotReported().forEach(status -> {
             reportStatus(battle, status);
             status.setReported(true);
