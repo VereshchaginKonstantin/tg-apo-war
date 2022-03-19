@@ -67,9 +67,13 @@ public class ReportEngine {
         var user = userRepository
                 .findById(userName)
                 .get();
-        send(text, user);
+        send(userName
+                + " message:"
+                + text, user);
         if (action.getValue().isBroadcast()) {
-            text = "Только для отладки(потом скрыто будет)! - "
+            text = otherUserName
+                    + " message:"
+                    + "Только для отладки(потом скрыто будет)! - "
                     + action.getValue().toString()
                     + " "
                     + action.getTimestamp().toString();
@@ -193,9 +197,7 @@ public class ReportEngine {
     private void send(String text, User user) {
         SendMessage message =
                 new SendMessage(user.getChatId(),
-                            user.getUserName()
-                                + " message:"
-                                + text);
+                            text);
         try {
             writeReadBot
                     .execute(message);
