@@ -64,7 +64,7 @@ public class Battle {
         var u1 = userFirst
                 .getAction()
                 .getCurrent();
-        var u2 = userFirst
+        var u2 = userSecond
                 .getAction()
                 .getCurrent();
         if (u1.getValue().equals(UserAction.ATTACK) &&
@@ -75,7 +75,7 @@ public class Battle {
         if (!u1.getValue().equals(UserAction.ATTACK) &&
                 u2.getValue().equals(UserAction.ATTACK)
         ) {
-            return userFirst.getUserName();
+            return userSecond.getUserName();
         }
         if (u1.getValue().equals(UserAction.ATTACK) &&
                 u2.getValue().equals(UserAction.ATTACK)

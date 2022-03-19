@@ -133,6 +133,8 @@ public class BattleEngine {
                 b.getUser(attackUserName).getAction()
                         .add(new HistoryItem<>(UserAction.ATTACK_SUCCESS));
                 b.getUser(underAttackUserName).getAction()
+                        .add(new HistoryItem<>(UserAction.DEFENSE_FAILED));
+                b.getUser(underAttackUserName).getAction()
                         .add(new HistoryItem<>(UserAction.KILLED));
                 b.setWinnerUserName(attackUserName);
                 b.setLooserUserName(underAttackUserName);
