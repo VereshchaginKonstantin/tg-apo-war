@@ -58,7 +58,7 @@ public class HistoryList<T extends Reportable & History> extends ArrayList<T> {
 
     public List<T> getNotReported() {
         return stream()
-                .filter(Reportable::isReported)
+                .filter(x -> !x.isReported())
                 .collect(Collectors.toList());
     }
 }
