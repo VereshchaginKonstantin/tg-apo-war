@@ -52,11 +52,13 @@ public class BattleEngine {
                 .getUserFirst()
                 .getAction()
                 .getCurrent()
+                .getValue()
                 .equals(UserAction.ATTACK) ||
                 b
                 .getUserSecond()
                 .getAction()
                 .getCurrent()
+                .getValue()
                 .equals(UserAction.ATTACK)) {
             attack(b);
         }
