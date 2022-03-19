@@ -71,7 +71,7 @@ public class ReportEngine {
                 + " message:"
                 + text, user);
         if (action.getValue().isBroadcast()) {
-            text = otherUserName
+            text = userName
                     + " message:"
                     + "Только для отладки(потом скрыто будет)! - "
                     + action.getValue().toString()
