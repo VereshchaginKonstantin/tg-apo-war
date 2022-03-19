@@ -34,12 +34,16 @@ public class ReportEngine {
 
     public void sendByTimer(Battle battle) {
         battle.getUserFirst().getAction().forEach(action -> {
-            reportAction(battle.getUserFirst().getUserName(),
+            reportAction(
+                    battle.getUserFirst().getUserName(),
+                    battle.getUserSecond().getUserName(),
                     action);
             action.setReported(true);
         });
         battle.getUserSecond().getAction().forEach(action -> {
-            reportAction(battle.getUserSecond().getUserName(),
+            reportAction(
+                    battle.getUserSecond().getUserName(),
+                    battle.getUserFirst().getUserName(),
                     action);
             action.setReported(true);
         });
@@ -50,12 +54,22 @@ public class ReportEngine {
         battleRepository.save(battle);
     }
 
-    private void reportAction(String userName, HistoryItem<UserAction> action) {
+    private void reportAction(String userName, String otherUserName, HistoryItem<UserAction> action) {
         String text = action.getValue().toString() + " " + action.getTimestamp().toString();
         var user = userRepository
                 .findById(userName)
                 .get();
         send(text, user);
+        if (action.getValue().isBroadcast()) {
+            text = "Только для отладки(потом скрыто будет)! - "
+                    + action.getValue().toString()
+                    + " "
+                    + action.getTimestamp().toString();
+            user = userRepository
+                    .findById(otherUserName)
+                    .get();
+            send(text, user);
+        }
     }
 
     private void reportStatus(Battle battle, HistoryItem<BattleState> status) {
