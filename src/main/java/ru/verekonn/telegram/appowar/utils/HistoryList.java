@@ -16,9 +16,9 @@ public class HistoryList<T extends Reportable & History> extends ArrayList<T> {
         add(init);
     }
 
-    public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
+    public static long getDateDiff(Date date1, Date date2) {
         long diffInMillies = date2.getTime() - date1.getTime();
-        return timeUnit.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        return diffInMillies;
     }
 
     public boolean hasChanges(Date timestamp) {
@@ -49,11 +49,8 @@ public class HistoryList<T extends Reportable & History> extends ArrayList<T> {
         }
     }
 
-    public long timeSpend() {
-        return getDateDiff(getStart(), new Date(), TimeUnit.SECONDS);
-    }
     public long timeSpendAfterLastChanges() {
-        return getDateDiff(getCurrentDate(), new Date(), TimeUnit.SECONDS);
+        return getDateDiff(getCurrentDate(), new Date());
     }
 
     public List<T> getNotReported() {

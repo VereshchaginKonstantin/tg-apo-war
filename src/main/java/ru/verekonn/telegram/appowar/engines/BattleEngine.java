@@ -58,7 +58,7 @@ public class BattleEngine {
                 .equals(UserAction.ATTACK)) {
             attack(b);
         }
-        if (b.getState().timeSpendAfterLastChanges() > Battle.END) {
+        if (b.getState().timeSpendAfterLastChanges() > Battle.END_MS) {
             b.getState().add(new HistoryItem<>(BattleState.DRAW_BY_TIME));
             return;
         }
