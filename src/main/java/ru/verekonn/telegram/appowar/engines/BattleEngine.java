@@ -136,7 +136,8 @@ public class BattleEngine {
 
             var result = AttackCalculator.howWin(attackUser,
                     underAttackUser,
-                    b.getUser(underAttackUserName).getAction());
+                    b.getUser(underAttackUserName).getAction(),
+                    b.getUser(attackUserName).getAction());
             if (result.equals(AttackResult.WIN)) {
                 b.getUser(attackUserName).getAction()
                         .add(new HistoryItem<>(UserAction.ATTACK_SUCCESS));
