@@ -47,13 +47,8 @@ public class ReportEngine {
             action.setReported(true);
                     any.set(true);
         });
-        if (any.get()) {
-            var user = userRepository
-                    .findById(battle.getUserFirst().getUserName())
-                    .get();
-            sendStartFightMenu(battle, "Что дальше? ", user);
-        }
-        any.set(false);
+
+        AtomicBoolean any2 = new AtomicBoolean(false);
         battle
                 .getUserSecond()
                 .getAction()
@@ -64,9 +59,15 @@ public class ReportEngine {
                     battle.getUserFirst().getUserName(),
                     action);
             action.setReported(true);
-            any.set(true);
+            any2.set(true);
         });
         if (any.get()) {
+            var user = userRepository
+                    .findById(battle.getUserFirst().getUserName())
+                    .get();
+            sendStartFightMenu(battle, "Что дальше? ", user);
+        }
+        if (any2.get()) {
             var user = userRepository
                     .findById(battle.getUserSecond().getUserName())
                     .get();
