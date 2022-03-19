@@ -187,8 +187,8 @@ public class ReportEngine {
                         .getLooserUserName())
                 .get();
         text += userWinner.getUserName();
-        text += userWinner;
-        text += userLooser;
+        text += "\n\n " + userWinner;
+        text += "\n\n " +userLooser;
         send(text, userWinner, userLooser);
     }
 
