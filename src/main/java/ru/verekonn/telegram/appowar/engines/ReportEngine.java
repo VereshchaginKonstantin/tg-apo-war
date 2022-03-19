@@ -193,7 +193,9 @@ public class ReportEngine {
     private void send(String text, User user) {
         SendMessage message =
                 new SendMessage(user.getChatId(),
-                        text);
+                            user.getUserName()
+                                + " message:"
+                                + text);
         try {
             writeReadBot
                     .execute(message);
